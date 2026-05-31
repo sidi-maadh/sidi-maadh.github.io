@@ -25,7 +25,7 @@ window.I18N = {
 
     "about.eye": "// who I am",
     "about.title": "About me",
-    "about.lede": "I'm a Master's student in Artificial Intelligence with a strong foundation in software engineering. My work sits at the intersection of research and product — designing models, training them rigorously, and shipping them as reliable production systems. I care about clean code, reproducible experiments, and turning ideas into real, measurable impact.",
+    "about.lede": "I'm an AI/ML Engineer passionate about developing intelligent systems and data-driven solutions. My expertise includes machine learning, deep learning, data preprocessing, model training, and evaluation. I enjoy leveraging artificial intelligence to solve complex problems and create innovative applications that deliver meaningful impact.",
 
     "exp.eye": "// my journey",
     "exp.title": "Experience & Education",
@@ -54,7 +54,7 @@ window.I18N = {
     "proj.ml": "Reusable templates for classification, CNNs, and transformers. From baseline to production-ready notebooks with experiment tracking.",
     "proj.mobile": "Cross-platform Flutter applications with Firebase backend. Native feel, fast iteration, real-time sync.",
     "proj.web": "Modern React dashboards with Spring Boot backends. Type-safe, tested, deployed. Real-time data visualization.",
-    "proj.more": "All repositories",
+    "proj.more": "Load More",
 
     "tech.eye": "// tools I work with",
     "tech.title": "Tech Stack",
@@ -86,7 +86,7 @@ window.I18N = {
 
     "ctc.eye": "// let's talk",
     "ctc.title": "Get in touch",
-    "ctc.sub": "Open to internships, ML engineering roles, and interesting collaborations.",
+    "ctc.sub": "Have a project in mind or just want to chat? I'd love to hear from you. Let's discuss how we can bring your ideas to life.",
     "ctc.cv": "Resume",
     "ctc.cv.d": "Download my CV",
     "ctc.cta.t": "Building something interesting?",
@@ -119,7 +119,7 @@ window.I18N = {
 
     "about.eye": "// qui je suis",
     "about.title": "À propos",
-    "about.lede": "Étudiant en Master Intelligence Artificielle avec une solide formation en génie logiciel. Mon travail se situe à l'intersection de la recherche et du produit — concevoir des modèles, les entraîner rigoureusement, et les livrer en production. Je tiens au code propre, aux expériences reproductibles, et à transformer les idées en impact réel et mesurable.",
+    "about.lede": "Je suis un ingénieur IA/ML passionné par le développement de systèmes intelligents et de solutions data-driven. Mon expertise couvre le machine learning, le deep learning, le prétraitement de données, l'entraînement et l'évaluation de modèles. J'aime utiliser l'intelligence artificielle pour résoudre des problèmes complexes et créer des applications innovantes à fort impact.",
 
     "exp.eye": "// mon parcours",
     "exp.title": "Expérience & Formation",
@@ -148,7 +148,7 @@ window.I18N = {
     "proj.ml": "Templates réutilisables pour classification, CNN et transformers. Du baseline à des notebooks prêts pour la production avec suivi d'expériences.",
     "proj.mobile": "Applications Flutter multi-plateformes avec backend Firebase. Look natif, itération rapide, synchronisation en temps réel.",
     "proj.web": "Dashboards React modernes avec backends Spring Boot. Type-safe, testés, déployés. Visualisation de données en temps réel.",
-    "proj.more": "Tous les dépôts",
+    "proj.more": "Voir plus",
 
     "tech.eye": "// outils que j'utilise",
     "tech.title": "Stack technique",
@@ -180,7 +180,7 @@ window.I18N = {
 
     "ctc.eye": "// parlons",
     "ctc.title": "Me contacter",
-    "ctc.sub": "Ouvert aux stages, postes d'ingénieur ML et collaborations intéressantes.",
+    "ctc.sub": "Vous avez un projet en tête ou simplement envie de discuter ? J'adorerais avoir de vos nouvelles. Discutons de comment donner vie à vos idées.",
     "ctc.cv": "CV",
     "ctc.cv.d": "Télécharger mon CV",
     "ctc.cta.t": "Un projet intéressant ?",
