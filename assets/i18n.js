@@ -48,8 +48,8 @@ window.I18N = {
     "edu.e4.desc": "Foundational training in accounting, finance, and quantitative analysis — completed alongside computer science studies.",
 
     "proj.eye": "// what I build",
-    "proj.title": "Selected projects",
-    "proj.sub": "A focused selection — from ML systems to full-stack applications.",
+    "proj.title": "Featured Projects",
+    "proj.sub": "Explore my latest work and creative solutions. Each project represents a unique challenge and innovative approach to problem-solving.",
     "proj.rag": "Retrieval-augmented chatbot built with LangChain, vector search, and a fine-tuned LLM backbone. Production-ready REST API with streaming responses.",
     "proj.ml": "Reusable templates for classification, CNNs, and transformers. From baseline to production-ready notebooks with experiment tracking.",
     "proj.mobile": "Cross-platform Flutter applications with Firebase backend. Native feel, fast iteration, real-time sync.",
@@ -142,8 +142,8 @@ window.I18N = {
     "edu.e4.desc": "Formation fondamentale en comptabilité, finance et analyse quantitative — réalisée en parallèle des études d'informatique.",
 
     "proj.eye": "// ce que je construis",
-    "proj.title": "Projets sélectionnés",
-    "proj.sub": "Une sélection ciblée — des systèmes ML aux applications full-stack.",
+    "proj.title": "Projets en vedette",
+    "proj.sub": "Découvrez mes derniers projets et solutions créatives. Chaque projet représente un défi unique et une approche innovante de la résolution de problèmes.",
     "proj.rag": "Chatbot RAG construit avec LangChain, recherche vectorielle et un LLM fine-tuné. API REST prête pour la production avec réponses en streaming.",
     "proj.ml": "Templates réutilisables pour classification, CNN et transformers. Du baseline à des notebooks prêts pour la production avec suivi d'expériences.",
     "proj.mobile": "Applications Flutter multi-plateformes avec backend Firebase. Look natif, itération rapide, synchronisation en temps réel.",
