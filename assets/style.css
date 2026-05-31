@@ -295,3 +295,36 @@ body { font-family: 'Sora', system-ui, sans-serif; background: var(--bg); color:
   .bottom-nav { display: flex; }
   body { padding-bottom: 80px; }
 }
+
+/* ============ TECH CHIPS WITH LOGOS ============ */
+.chip { display: inline-flex; align-items: center; gap: 7px; }
+.chip svg { flex-shrink: 0; }
+
+/* ============ HERO SCAM MONOGRAM SVG ============ */
+.visual-mono-svg { position: relative; z-index: 3; width: 180px; height: 180px; }
+
+/* ============ LOADING / ERROR STATES ============ */
+.cert-loading, .edu-loading {
+  padding: 60px 30px; text-align: center; font-size: 14px; color: var(--text-mute);
+  background: var(--bg-card); border: 1px dashed var(--border); border-radius: 14px;
+}
+.cert-loading::before, .edu-loading::before {
+  content: ''; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid var(--accent-soft); border-top-color: var(--accent);
+  border-radius: 50%; margin-right: 10px; vertical-align: middle;
+  animation: spin 0.8s linear infinite;
+}
+.error-note {
+  padding: 20px 24px; background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 4px solid var(--warning); border-radius: 10px;
+  font-size: 14px; color: var(--text-soft);
+}
+.error-note a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.error-note a:hover { text-decoration: underline; }
+
+/* Planned cert tiles when linked */
+a.cert-planned {
+  text-decoration: none; color: inherit;
+  transition: all 0.2s;
+}
+a.cert-planned:hover { border-color: var(--accent); transform: translateY(-1px); }
