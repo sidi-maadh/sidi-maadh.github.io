@@ -292,32 +292,68 @@
 
     let subjects = {};
     let totalMin = 0;
+    let totalHoursFromSheet = null;  // Direct value from cell M13
     let dataSource = 'fallback';
+
+    // Simple CSV row parser (handles quoted fields with commas)
+    function parseCSVRow(line) {
+      const cells = [];
+      let cur = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"' && line[i + 1] === '"') { cur += '"'; i++; }
+        else if (ch === '"') { inQuotes = !inQuotes; }
+        else if (ch === ',' && !inQuotes) { cells.push(cur); cur = ''; }
+        else { cur += ch; }
+      }
+      cells.push(cur);
+      return cells.map(c => c.trim());
+    }
 
     try {
       const res = await fetch(SHEET_CSV_URL);
       if (res.ok) {
         const text = await res.text();
-        const lines = text.split(/\r?\n/).filter(l => l.trim());
-        if (lines.length > 1) {
-          // Parse CSV header to find columns
-          const header = lines[0].split(',').map(h => h.toLowerCase().trim().replace(/^"|"$/g, ''));
+        const lines = text.split(/\r?\n/);
+        const rows = lines.map(parseCSVRow);
+
+        // ============ Extract total from cell M13 (row index 12, col index 12) ============
+        if (rows.length > 12 && rows[12].length > 12) {
+          const rawTotal = rows[12][12];
+          if (rawTotal) {
+            // Parse "234h 30m", "234.5", "234", etc.
+            const hm = rawTotal.match(/(\d+)\s*h\s*(\d+)?/i);
+            if (hm) {
+              totalHoursFromSheet = parseInt(hm[1]) + (parseInt(hm[2]) || 0) / 60;
+            } else {
+              const n = parseFloat(rawTotal.replace(',', '.'));
+              if (!isNaN(n)) totalHoursFromSheet = n;
+            }
+          }
+        }
+
+        // ============ Extract subject hours from data rows ============
+        if (rows.length > 1) {
+          const header = (rows[0] || []).map(h => (h || '').toLowerCase().trim());
           const iSubj = header.findIndex(h => h.includes('subject') || h.includes('field') || h.includes('matière') || h.includes('topic') || h.includes('category'));
           const iH = header.findIndex(h => h === 'hours' || h === 'h' || h.includes('heure'));
           const iM = header.findIndex(h => h === 'minutes' || h === 'm' || h.includes('min'));
           const iTime = header.findIndex(h => h.includes('time') || h.includes('duration'));
 
-          for (let i = 1; i < lines.length; i++) {
-            const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+          for (let i = 1; i < rows.length; i++) {
+            const cols = rows[i];
             if (iSubj < 0 || !cols[iSubj]) continue;
             const subj = cols[iSubj];
+            // Skip if subject looks like "TOTAL" or aggregated label
+            if (/^total/i.test(subj.trim())) continue;
+
             let mins = 0;
             if (iH >= 0 || iM >= 0) {
               const h = parseInt(cols[iH] || 0) || 0;
               const m = parseInt(cols[iM] || 0) || 0;
               mins = h * 60 + m;
             } else if (iTime >= 0) {
-              // Try parsing "1h 30m" or "1.5" or "90"
               const v = cols[iTime] || '';
               const hm = v.match(/(\d+)h\s*(\d+)?m?/i);
               if (hm) {
@@ -354,16 +390,21 @@
     }
 
     const sorted = Object.entries(subjects).sort((a, b) => b[1] - a[1]);
-    const maxMin = sorted[0] ? sorted[0][1] : 1;
+    const top5 = sorted.slice(0, 5);
+    const maxMin = top5[0] ? top5[0][1] : 1;
     const dict = window.I18N?.[curLang] || {};
 
-    // Update quick-stat card
-    updateCounterTarget('qs-edu', Math.floor(totalMin / 60));
+    // ============ Update Hours Studied stat ============
+    // Priority: total from sheet cell M13 (if available) > sum of all subjects
+    const displayedTotalHours = totalHoursFromSheet !== null
+      ? Math.round(totalHoursFromSheet)
+      : Math.floor(totalMin / 60);
+    updateCounterTarget('qs-edu', displayedTotalHours);
 
     container.innerHTML = `
       <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
       <div class="edu-bars">
-        ${sorted.slice(0, 6).map(([name, mins]) => {
+        ${top5.map(([name, mins]) => {
           const pct = Math.max(8, Math.round(mins / maxMin * 100));
           return `<div class="edu-bar">
             <div class="edu-bar-row"><span class="edu-bar-name">${ESC(name)}</span><span class="edu-bar-val">${formatHM(mins)}</span></div>
