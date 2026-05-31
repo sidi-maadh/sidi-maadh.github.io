@@ -17,7 +17,7 @@ window.I18N = {
     "home.role.a": "AI / Machine Learning Engineer",
     "home.role.b": "Master's in AI",
     "home.tag": "I build practical, well-engineered ML systems — from research mindset to production delivery.",
-    "home.cta.a": "View my work",
+    "home.cta.a": "Contact Me",
     "home.cta.b": "Resume",
     "home.m.a": "Mauritania",
     "home.m.b": "MSc Artificial Intelligence",
@@ -92,6 +92,9 @@ window.I18N = {
     "ctc.cta.t": "Building something interesting?",
     "ctc.cta.d": "I'm always happy to discuss new opportunities, research collaborations, or technical challenges.",
     "ctc.cta.b": "Send me an email",
+    "footer.role": "AI / Machine Learning Engineer",
+    "footer.rights": "All rights reserved.",
+    "footer.built": "Built with passion and care",
   },
   fr: {
     "nav.home": "Accueil",
@@ -111,7 +114,7 @@ window.I18N = {
     "home.role.a": "Ingénieur IA / Machine Learning",
     "home.role.b": "Master en IA",
     "home.tag": "Je conçois des systèmes ML pratiques et bien architecturés — de la démarche de recherche à la livraison en production.",
-    "home.cta.a": "Voir mes projets",
+    "home.cta.a": "Me contacter",
     "home.cta.b": "CV",
     "home.m.a": "Mauritanie",
     "home.m.b": "Master en IA",
@@ -186,5 +189,8 @@ window.I18N = {
     "ctc.cta.t": "Un projet intéressant ?",
     "ctc.cta.d": "Toujours heureux de discuter de nouvelles opportunités, collaborations de recherche ou défis techniques.",
     "ctc.cta.b": "Envoyez-moi un email",
+    "footer.role": "Ingénieur IA / Machine Learning",
+    "footer.rights": "Tous droits réservés.",
+    "footer.built": "Construit avec passion et soin",
   }
 };
