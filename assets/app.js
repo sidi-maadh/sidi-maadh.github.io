@@ -139,35 +139,43 @@
         for (const s of stat.result) if (s.verdict === 'OK') { const p = s.problem; set.add((p.contestId || 'x') + '-' + p.index); }
         solved = set.size;
       }
-      const el = document.getElementById('qs-cf');
-      if (el) el.textContent = solved ? solved + '+' : 'Active';
+      updateCounterTarget('qs-cf', solved);
     } catch (e) {
       console.warn('CF:', e);
-      const el = document.getElementById('qs-cf');
-      if (el) el.textContent = 'Active';
+      updateCounterTarget('qs-cf', 0);
     }
   }
 
   // ============ LIVE SCORES — LeetCode ============
   async function loadLeetCode() {
-    try {
-      const res = await fetch('https://leetcode-stats-api.herokuapp.com/sidi_maadh');
-      const d = await res.json();
-      const el = document.getElementById('qs-lc');
-      if (el) el.textContent = d.status === 'success' ? (d.totalSolved + '+') : 'Active';
-    } catch (e) {
-      console.warn('LC:', e);
-      const el = document.getElementById('qs-lc');
-      if (el) el.textContent = 'Active';
+    // Try multiple endpoints (the heroku one is dead, use alfa-leetcode-api as primary)
+    const endpoints = [
+      'https://alfa-leetcode-api.onrender.com/sidi_maadh/solved',
+      'https://leetcode-stats-api.herokuapp.com/sidi_maadh',
+    ];
+    for (const url of endpoints) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) continue;
+        const d = await res.json();
+        const total = d.solvedProblem || d.totalSolved || 0;
+        if (total > 0) {
+          updateCounterTarget('qs-lc', total);
+          return;
+        }
+      } catch (_) { /* try next */ }
     }
+    updateCounterTarget('qs-lc', 0);
   }
 
   // ============ DYNAMIC CERTIFICATIONS ============
   const ESC = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  function resolveCertUrl(cert) {
+  function resolveCertUrl(cert, statusGroup) {
+    // Only completed certifications get clickable links
+    if (statusGroup !== 'done') return null;
     if (cert.url) return cert.url;
     if (CERT_URLS[cert.name]) return CERT_URLS[cert.name];
-    return null; // no link
+    return null;
   }
   async function loadCertifications() {
     const container = document.getElementById('cert-content');
@@ -187,19 +195,18 @@
       upd('c-active', active.length);
       upd('c-planned', planned.length);
       // Quick-stat card
-      const qsCert = document.getElementById('qs-cert');
-      if (qsCert) qsCert.textContent = done.length + '+';
+      updateCounterTarget('qs-cert', done.length);
 
-      const buildRow = (cert, sc) => {
-        const url = resolveCertUrl(cert);
+      const buildRow = (cert, sc, statusGroup) => {
+        const url = resolveCertUrl(cert, statusGroup);
         const tag = url ? 'a' : 'div';
         const hrefAttr = url ? ` href="${ESC(url)}" target="_blank" rel="noopener"` : '';
         const platClass = (cert.platform || '').toLowerCase() === 'aws' ? ' plat-aws' : '';
         const arrow = url ? '<svg class="cert-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>' : '<span></span>';
         return `<${tag}${hrefAttr} class="cert-row ${sc}"><div class="cert-bar"></div><div class="cert-name">${ESC(cert.name || '')}</div><div class="cert-issuer">${ESC(cert.issuer || '')}</div><div class="cert-plat${platClass}">${ESC(cert.platform || '')}</div><div class="cert-year">${ESC(cert.year || '')}</div>${arrow}</${tag}>`;
       };
-      const buildTile = (cert) => {
-        const url = resolveCertUrl(cert);
+      const buildTile = (cert, statusGroup) => {
+        const url = resolveCertUrl(cert, statusGroup);
         const tag = url ? 'a' : 'div';
         const hrefAttr = url ? ` href="${ESC(url)}" target="_blank" rel="noopener"` : '';
         return `<${tag}${hrefAttr} class="cert-planned"><span>${ESC(cert.name || '')}</span><span class="planned-platform">${ESC(cert.platform || cert.code || '')}</span></${tag}>`;
@@ -212,7 +219,7 @@
       if (done.length) {
         html.push(`<div class="cert-block"><h3 class="cert-status-title done">${dict['cert.h.done'] || 'COMPLETED'}</h3>`);
         const visible = done.slice(0, MAX_DONE);
-        visible.forEach(c => html.push(buildRow(c, 'done-row')));
+        visible.forEach(c => html.push(buildRow(c, 'done-row', 'done')));
         if (done.length > MAX_DONE) {
           html.push(`<div class="cert-view-more"><a href="https://github.com/sidi-maadh#certifications" target="_blank" rel="noopener">+${done.length - MAX_DONE} ${dict['cert.more'] || 'more on GitHub'} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div>`);
         }
@@ -220,12 +227,12 @@
       }
       if (active.length) {
         html.push(`<div class="cert-block"><h3 class="cert-status-title active">${dict['cert.h.active'] || 'IN PROGRESS'}</h3>`);
-        active.forEach(c => html.push(buildRow(c, 'active-row')));
+        active.forEach(c => html.push(buildRow(c, 'active-row', 'active')));
         html.push('</div>');
       }
       if (planned.length) {
         html.push(`<div class="cert-block"><h3 class="cert-status-title planned">${dict['cert.h.planned'] || 'PLANNED'}</h3><div class="cert-planned-grid">`);
-        planned.forEach(c => html.push(buildTile(c)));
+        planned.forEach(c => html.push(buildTile(c, 'planned')));
         html.push('</div></div>');
       }
       container.innerHTML = html.join('');
@@ -260,8 +267,7 @@
     const dict = window.I18N?.[curLang] || {};
 
     // Update quick-stat card
-    const qsEdu = document.getElementById('qs-edu');
-    if (qsEdu) qsEdu.textContent = Math.floor(totalMin / 60) + 'h+';
+    updateCounterTarget('qs-edu', Math.floor(totalMin / 60));
 
     container.innerHTML = `
       <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}</h3>
@@ -367,6 +373,99 @@
     }
   });
 
+  // ============ ANIMATED COUNTERS ============
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target')) || 0;
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 1600;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const value = Math.round(target * eased);
+      el.textContent = value + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  // Helper: update a counter's target and re-animate if already in view
+  function updateCounterTarget(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.setAttribute('data-target', value);
+    if (el.dataset.animated) {
+      // Already in view → re-animate from 0 to new value
+      el.dataset.animated = '';
+      animateCounter(el);
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !e.target.dataset.animated) {
+          e.target.dataset.animated = '1';
+          animateCounter(e.target);
+          counterObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach((el) => counterObs.observe(el));
+  } else {
+    document.querySelectorAll('.counter').forEach(animateCounter);
+  }
+
+  // ============ GITHUB COMMITS (real number) ============
+  async function loadGitHubCommits() {
+    try {
+      // GitHub search API: count commits authored by user
+      const res = await fetch('https://api.github.com/search/commits?q=author:sidi-maadh', {
+        headers: { 'Accept': 'application/vnd.github.cloak-preview+json' }
+      });
+      const d = await res.json();
+      const count = d.total_count;
+      if (typeof count === 'number' && count > 0) {
+        const el = document.getElementById('qs-commits');
+        if (el) {
+          el.setAttribute('data-target', count);
+          // If already animated, reset
+          if (el.dataset.animated) {
+            el.dataset.animated = '';
+            animateCounter(el);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('GitHub commits:', e);
+    }
+  }
+
+  // ============ LOAD MORE PROJECTS ============
+  const loadMoreBtn = document.getElementById('loadMoreProjects');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      const hidden = document.querySelectorAll('.extra-project[hidden]');
+      // Reveal next 2 hidden projects per click
+      let revealed = 0;
+      for (const el of hidden) {
+        if (revealed >= 2) break;
+        el.hidden = false;
+        // Animate in
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        requestAnimationFrame(() => {
+          el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        });
+        revealed++;
+      }
+      // If no more hidden, hide the button
+      if (document.querySelectorAll('.extra-project[hidden]').length === 0) {
+        loadMoreBtn.style.display = 'none';
+      }
+    });
+  }
+
   // ============ INIT ============
   try {
     setTheme(localStorage.getItem('theme') || 'dark');
@@ -377,5 +476,6 @@
   loadLeetCode();
   loadCertifications();
   loadSelfEducation();
+  loadGitHubCommits();
   setTimeout(() => revealItems(tlExp), 200);
 })();
