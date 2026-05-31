@@ -823,3 +823,173 @@ a.cert-planned:hover { border-color: var(--accent); transform: translateY(-1px);
     max-width: 100% !important;
   }
 }
+
+/* ===================== FLOATING NAVBAR (premium) ===================== */
+.nav {
+  position: fixed !important;
+  top: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 40px) !important;
+  max-width: 980px !important;
+  padding: 10px 22px !important;
+  background: rgba(13, 16, 24, 0.7) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 100px !important;
+  box-shadow:
+    0 8px 32px -8px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(139, 92, 246, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  z-index: 100;
+  animation: navFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="light"] .nav {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow:
+    0 8px 32px -8px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+@keyframes navFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Body needs top spacing for the floating nav */
+body { padding-top: 100px; }
+@media (max-width: 920px) { body { padding-top: 80px; } }
+
+/* ===================== NEW LOGO: SCAM (no box) ===================== */
+.brand { gap: 0 !important; }
+.brand-logo, .brand-name { display: none !important; }
+.brand-scam {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  position: relative;
+}
+.brand-scam .bs-s,
+.brand-scam .bs-c,
+.brand-scam .bs-a,
+.brand-scam .bs-m {
+  display: inline-block;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s;
+}
+.brand-scam .bs-s { background-image: linear-gradient(135deg, #8b5cf6, #6366f1); }
+.brand-scam .bs-c { background-image: linear-gradient(135deg, #6366f1, #3b82f6); }
+.brand-scam .bs-a { background-image: linear-gradient(135deg, #3b82f6, #06b6d4); }
+.brand-scam .bs-m { background-image: linear-gradient(135deg, #06b6d4, #34d399); }
+.brand:hover .brand-scam .bs-s { transform: translateY(-2px); }
+.brand:hover .brand-scam .bs-c { transform: translateY(2px); }
+.brand:hover .brand-scam .bs-a { transform: translateY(-2px); }
+.brand:hover .brand-scam .bs-m { transform: translateY(2px); }
+
+/* ===================== NAV LINKS: subtle active style ===================== */
+.nav-links {
+  gap: 2px !important;
+}
+.nav-link {
+  padding: 7px 14px !important;
+  font-size: 13px !important;
+  border-radius: 100px !important;
+  position: relative;
+  transition: all 0.25s ease !important;
+}
+.nav-link:hover {
+  color: var(--text) !important;
+  background: rgba(139, 92, 246, 0.08) !important;
+}
+/* Active state: subtle background + purple text, NO underline / bar / triangle */
+.nav-link.active {
+  color: var(--accent) !important;
+  background: color-mix(in srgb, var(--accent) 15%, transparent) !important;
+}
+/* Remove any pseudo-element indicators */
+.nav-link::before, .nav-link::after { content: none !important; display: none !important; }
+
+/* Nav action buttons more compact */
+.icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 100px !important;
+  font-size: 12px !important;
+}
+
+/* ===================== AVATAR ===================== */
+.avatar-wrap {
+  position: relative;
+  z-index: 3;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px -15px rgba(139, 92, 246, 0.4),
+    0 0 0 2px rgba(139, 92, 246, 0.2);
+  background: var(--bg);
+}
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.visual-card .avatar-wrap {
+  animation: avatarFloat 6s ease-in-out infinite;
+}
+@keyframes avatarFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Hide the old SVG monogram if any leftover */
+.visual-mono-svg { display: none !important; }
+
+/* Mobile avatar size */
+@media (max-width: 920px) {
+  .avatar-wrap {
+    width: 200px !important;
+    height: 200px !important;
+  }
+}
+
+/* ===================== HIDDEN CERTS & LOAD MORE BUTTON ===================== */
+.cert-row.hidden-cert { display: none !important; }
+.cert-view-more { text-align: center; margin-top: 14px; }
+.btn-load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-load-more:hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-card));
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px var(--accent);
+}
+.btn-load-more:hover svg {
+  transform: translateY(2px);
+}
+.btn-load-more svg {
+  transition: transform 0.25s ease;
+}
