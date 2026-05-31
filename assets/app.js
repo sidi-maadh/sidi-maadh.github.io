@@ -218,10 +218,19 @@
 
       if (done.length) {
         html.push(`<div class="cert-block"><h3 class="cert-status-title done">${dict['cert.h.done'] || 'COMPLETED'}</h3>`);
-        const visible = done.slice(0, MAX_DONE);
-        visible.forEach(c => html.push(buildRow(c, 'done-row', 'done')));
+        // Show first MAX_DONE
+        done.slice(0, MAX_DONE).forEach(c => html.push(buildRow(c, 'done-row', 'done')));
+        // Hide the rest, will reveal 2 per Load More click
         if (done.length > MAX_DONE) {
-          html.push(`<div class="cert-view-more"><a href="https://github.com/sidi-maadh#certifications" target="_blank" rel="noopener">+${done.length - MAX_DONE} ${dict['cert.more'] || 'more on GitHub'} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div>`);
+          done.slice(MAX_DONE).forEach((c, i) => {
+            const row = buildRow(c, 'done-row hidden-cert', 'done');
+            html.push(row);
+          });
+          const remaining = done.length - MAX_DONE;
+          html.push(`<div class="cert-view-more"><button type="button" id="loadMoreCerts" class="btn-load-more">
+            <span>${dict['cert.more'] || 'Load More'}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button></div>`);
         }
         html.push('</div>');
       }
@@ -237,6 +246,31 @@
       }
       container.innerHTML = html.join('');
       container.classList.remove('cert-loading');
+
+      // Wire up Load More button for hidden certifications
+      const certLoadMore = document.getElementById('loadMoreCerts');
+      if (certLoadMore) {
+        certLoadMore.addEventListener('click', () => {
+          const hiddenCerts = container.querySelectorAll('.cert-row.hidden-cert');
+          let revealed = 0;
+          for (const row of hiddenCerts) {
+            if (revealed >= 2) break;
+            row.classList.remove('hidden-cert');
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-10px)';
+            requestAnimationFrame(() => {
+              row.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+              row.style.opacity = '1';
+              row.style.transform = 'translateX(0)';
+            });
+            revealed++;
+          }
+          // Hide button if no more hidden
+          if (container.querySelectorAll('.cert-row.hidden-cert').length === 0) {
+            certLoadMore.parentElement.style.display = 'none';
+          }
+        });
+      }
     } catch (e) {
       console.warn('Cert load failed:', e);
       container.innerHTML = '<p class="error-note">Could not load certifications. <a href="https://github.com/sidi-maadh" target="_blank" rel="noopener">View them on my GitHub</a> instead.</p>';
@@ -253,26 +287,83 @@
     const container = document.getElementById('edu-content');
     if (!container) return;
 
-    // Fallback data (consistent with GitHub profile)
-    const subjects = {
-      'Computer Science · Technology · Programming': 135 * 60 + 40,
-      'Innovation · Design Thinking · Ideation': 30 * 60 + 40,
-      'Economics · Marketing · Finance': 25 * 60,
-      'Statistics · Mathematics · Data Analysis': 22 * 60,
-      'Languages': 21 * 60 + 10,
-    };
+    // Real Google Sheet CSV (published to web)
+    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS9qcgWzwekcE488FaB73lGI9T_gsT1vbPt_zfnqhonZskpQpYY8n0vgZuELZwkoXCJwSXndSmPAHQY/pub?gid=0&single=true&output=csv';
+
+    let subjects = {};
+    let totalMin = 0;
+    let dataSource = 'fallback';
+
+    try {
+      const res = await fetch(SHEET_CSV_URL);
+      if (res.ok) {
+        const text = await res.text();
+        const lines = text.split(/\r?\n/).filter(l => l.trim());
+        if (lines.length > 1) {
+          // Parse CSV header to find columns
+          const header = lines[0].split(',').map(h => h.toLowerCase().trim().replace(/^"|"$/g, ''));
+          const iSubj = header.findIndex(h => h.includes('subject') || h.includes('field') || h.includes('matière') || h.includes('topic') || h.includes('category'));
+          const iH = header.findIndex(h => h === 'hours' || h === 'h' || h.includes('heure'));
+          const iM = header.findIndex(h => h === 'minutes' || h === 'm' || h.includes('min'));
+          const iTime = header.findIndex(h => h.includes('time') || h.includes('duration'));
+
+          for (let i = 1; i < lines.length; i++) {
+            const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+            if (iSubj < 0 || !cols[iSubj]) continue;
+            const subj = cols[iSubj];
+            let mins = 0;
+            if (iH >= 0 || iM >= 0) {
+              const h = parseInt(cols[iH] || 0) || 0;
+              const m = parseInt(cols[iM] || 0) || 0;
+              mins = h * 60 + m;
+            } else if (iTime >= 0) {
+              // Try parsing "1h 30m" or "1.5" or "90"
+              const v = cols[iTime] || '';
+              const hm = v.match(/(\d+)h\s*(\d+)?m?/i);
+              if (hm) {
+                mins = parseInt(hm[1]) * 60 + (parseInt(hm[2]) || 0);
+              } else {
+                const n = parseFloat(v);
+                if (!isNaN(n)) mins = Math.round(n * 60);
+              }
+            }
+            if (mins > 0) {
+              subjects[subj] = (subjects[subj] || 0) + mins;
+              totalMin += mins;
+            }
+          }
+          if (Object.keys(subjects).length > 0) {
+            dataSource = 'sheet';
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Sheet CSV:', e);
+    }
+
+    // Fallback if no data from sheet
+    if (dataSource === 'fallback') {
+      subjects = {
+        'Computer Science · Technology · Programming': 135 * 60 + 40,
+        'Innovation · Design Thinking · Ideation': 30 * 60 + 40,
+        'Economics · Marketing · Finance': 25 * 60,
+        'Statistics · Mathematics · Data Analysis': 22 * 60,
+        'Languages': 21 * 60 + 10,
+      };
+      totalMin = Object.values(subjects).reduce((a, b) => a + b, 0);
+    }
+
     const sorted = Object.entries(subjects).sort((a, b) => b[1] - a[1]);
-    const maxMin = sorted[0][1];
-    const totalMin = sorted.reduce((s, [, v]) => s + v, 0);
+    const maxMin = sorted[0] ? sorted[0][1] : 1;
     const dict = window.I18N?.[curLang] || {};
 
     // Update quick-stat card
     updateCounterTarget('qs-edu', Math.floor(totalMin / 60));
 
     container.innerHTML = `
-      <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}</h3>
+      <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
       <div class="edu-bars">
-        ${sorted.slice(0, 5).map(([name, mins]) => {
+        ${sorted.slice(0, 6).map(([name, mins]) => {
           const pct = Math.max(8, Math.round(mins / maxMin * 100));
           return `<div class="edu-bar">
             <div class="edu-bar-row"><span class="edu-bar-name">${ESC(name)}</span><span class="edu-bar-val">${formatHM(mins)}</span></div>
