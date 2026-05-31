@@ -379,3 +379,447 @@ a.cert-planned:hover { border-color: var(--accent); transform: translateY(-1px);
 @media (max-width: 540px) {
   .contact-cards { grid-template-columns: 1fr; }
 }
+
+/* ===== SECTION INTRO ===== */
+.section-intro {
+  text-align: center;
+  font-size: 14.5px;
+  color: var(--text-mute);
+  max-width: 640px;
+  margin: -16px auto 36px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ===== TECH CHIPS — SQUARE CARD STYLE (like contact cards) ===== */
+.tech-chips {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  justify-content: center;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.chip {
+  flex-direction: column;
+  padding: 22px 12px !important;
+  text-align: center;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 18px !important;
+  font-size: 14px !important;
+  position: relative;
+  overflow: hidden;
+}
+.chip::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  pointer-events: none;
+}
+.chip:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border)) !important;
+  box-shadow: 0 14px 30px -10px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.chip:hover::before { opacity: 1; }
+.chip svg {
+  width: 32px !important;
+  height: 32px !important;
+  margin-bottom: 6px;
+}
+
+/* ===== TIMELINE LOGOS (image with text fallback) ===== */
+.tl-logo {
+  position: relative;
+  overflow: hidden;
+}
+.tl-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+  background: white;
+  border-radius: 10px;
+}
+.tl-logo-text {
+  position: absolute;
+  inset: 0;
+  display: grid; place-items: center;
+  color: white; font-weight: 800; font-size: 14px;
+  letter-spacing: -0.5px;
+  z-index: 0;
+}
+/* When image loads successfully, hide text. When it fails (display:none), text shows via z-index */
+.tl-logo img + .tl-logo-text { display: none; }
+.tl-logo img[style*="display: none"] + .tl-logo-text { display: grid; }
+
+/* ===== CONTACT CARDS — REDUCED SIZE (match form width) ===== */
+.contact-cards {
+  max-width: 720px !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.contact-card-v2 {
+  padding: 22px 14px !important;
+}
+.contact-card-v2 .cc-icon {
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 auto 12px !important;
+}
+.contact-card-v2 .cc-icon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+.contact-card-v2 h3 {
+  font-size: 14px !important;
+}
+.contact-card-v2 p {
+  font-size: 12px !important;
+}
+
+/* ===== SELF EDUCATION — bigger & symmetric ===== */
+.edu-block {
+  padding-top: 60px !important;
+  margin-top: 80px !important;
+  border-top: 1px solid var(--border-soft);
+}
+.edu-block .edu-bars {
+  max-width: 1080px !important;
+}
+.edu-block .edu-bar {
+  padding: 18px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: all 0.3s;
+}
+.edu-block .edu-bar:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  transform: translateX(2px);
+}
+.edu-block .edu-bar-name {
+  font-size: 15px !important;
+}
+.edu-block .edu-bar-val {
+  font-size: 14px !important;
+}
+.edu-block .edu-bar-track {
+  height: 10px !important;
+  margin-top: 4px;
+}
+
+/* ===== COUNTER ANIMATION ===== */
+.qs-num.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== MOBILE RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 920px) {
+  .tech-chips {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+  }
+  .chip {
+    padding: 16px 8px !important;
+    font-size: 12.5px !important;
+  }
+  .chip svg {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 540px) {
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* =============== SEPARATED STAT CARDS (no shared container) =============== */
+.quick-stats {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 16px !important;
+}
+.quick-stats .qs-card {
+  border-right: none !important;
+  border-bottom: none !important;
+  padding: 24px 18px !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 18px !important;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+.quick-stats .qs-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  pointer-events: none;
+}
+.quick-stats .qs-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border)) !important;
+  box-shadow: 0 14px 30px -10px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.quick-stats .qs-card:hover::before { opacity: 1; }
+
+/* =============== TECH CAT TITLES (left-aligned + bigger, except AI/ML) =============== */
+.tech-group-left {
+  text-align: left !important;
+}
+.tech-group-left .tech-cat {
+  font-family: 'Sora', system-ui, sans-serif !important;
+  text-transform: uppercase;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.3px !important;
+  margin-bottom: 22px !important;
+  padding-left: 14px;
+  border-left: 4px solid currentColor;
+  display: inline-block;
+}
+/* AI/ML stays a bit different — keep monospaced look but bigger */
+.tech-group-left:first-child .tech-cat {
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 1.5px !important;
+  font-size: 16px !important;
+}
+
+/* =============== CONTACT CARDS — EVEN SMALLER =============== */
+.contact-cards {
+  max-width: 720px !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px !important;
+}
+.contact-card-v2 {
+  padding: 16px 10px !important;
+}
+.contact-card-v2 .cc-icon {
+  width: 36px !important;
+  height: 36px !important;
+  margin: 0 auto 8px !important;
+  border-radius: 10px !important;
+}
+.contact-card-v2 .cc-icon svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+.contact-card-v2 h3 {
+  font-size: 13px !important;
+  margin-bottom: 2px !important;
+}
+.contact-card-v2 p {
+  font-size: 11px !important;
+}
+
+/* =============== HERO VISUAL — show on mobile too =============== */
+@media (max-width: 920px) {
+  .ha-right { display: grid !important; }
+  .visual-card { width: 220px !important; height: 220px !important; margin: 0 auto; }
+  .visual-mono-svg { width: 110px !important; height: 110px !important; }
+  .visual-orbit-1 { width: 130px !important; height: 130px !important; }
+  .visual-orbit-2 { width: 175px !important; height: 175px !important; }
+  .visual-orbit-3 { width: 220px !important; height: 220px !important; }
+  .visual-dot-1 { top: 50px !important; }
+  .visual-dot-2 { right: 30px !important; }
+  .visual-dot-3 { left: 20px !important; bottom: 30px !important; }
+  .quick-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+  .quick-stats .qs-card { padding: 18px 12px !important; }
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 540px) {
+  .quick-stats { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* =============== ALL SECTION TITLES → GRADIENT (like Get in Touch) =============== */
+.sec-title, .sec-title-small {
+  background: linear-gradient(135deg, var(--accent-3) 0%, var(--accent) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  display: inline-block;
+}
+.sec-title {
+  font-size: clamp(34px, 5vw, 56px) !important;
+  font-weight: 800 !important;
+}
+.sec-title-small {
+  font-size: clamp(28px, 4vw, 42px) !important;
+  font-weight: 800 !important;
+}
+/* Make sure light theme still works */
+[data-theme="light"] .sec-title,
+[data-theme="light"] .sec-title-small,
+[data-theme="light"] .contact-title {
+  background: linear-gradient(135deg, var(--accent-3) 0%, var(--accent) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* =============== TECH STACK — NOT CENTERED, BIGGER CHIPS =============== */
+#tech .sec-header.centered { text-align: center; }  /* keep title centered */
+.tech-groups {
+  max-width: 1200px !important;
+  align-items: stretch;
+}
+.tech-group-left {
+  text-align: left !important;
+}
+.tech-chips {
+  justify-content: flex-start !important;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+  max-width: 1200px !important;
+  gap: 16px !important;
+}
+.chip {
+  padding: 28px 16px !important;
+  font-size: 16px !important;
+  border-radius: 20px !important;
+}
+.chip svg {
+  width: 40px !important;
+  height: 40px !important;
+  margin-bottom: 10px !important;
+}
+
+/* =============== CONTACT CARDS — SMALLER STILL =============== */
+.contact-cards {
+  max-width: 640px !important;
+  gap: 10px !important;
+}
+.contact-card-v2 {
+  padding: 14px 8px !important;
+}
+.contact-card-v2 .cc-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin: 0 auto 6px !important;
+  border-radius: 8px !important;
+}
+.contact-card-v2 .cc-icon svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+.contact-card-v2 h3 {
+  font-size: 12px !important;
+  margin-bottom: 1px !important;
+}
+.contact-card-v2 p {
+  font-size: 10.5px !important;
+}
+
+/* =============== MOBILE RESPONSIVE =============== */
+@media (max-width: 920px) {
+  .tech-chips {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .chip {
+    padding: 20px 10px !important;
+    font-size: 13px !important;
+  }
+  .chip svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ============== SECTION HEADER FIX: eyebrow above title, not inline ============== */
+.sec-header { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.sec-header.centered { text-align: center; align-items: center; }
+.sec-header .eyebrow {
+  display: block;
+  width: 100%;
+  margin-bottom: 4px;
+}
+.sec-header .sec-title,
+.sec-header .sec-title-small {
+  display: block;
+  width: auto;
+  line-height: 1.1;
+}
+.sec-header .sec-sub {
+  margin-top: 8px;
+}
+
+/* ============== INCREASE SPACING BETWEEN SECTIONS ============== */
+.section { padding: 110px 56px !important; }
+.section-hero-about { padding-top: 50px !important; }
+.sub-section { margin-top: 110px !important; }
+
+/* ============== CONTACT CARDS — slightly bigger again ============== */
+.contact-cards {
+  max-width: 720px !important;
+  gap: 12px !important;
+}
+.contact-card-v2 {
+  padding: 18px 12px !important;
+}
+.contact-card-v2 .cc-icon {
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 auto 10px !important;
+  border-radius: 10px !important;
+}
+.contact-card-v2 .cc-icon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+.contact-card-v2 h3 {
+  font-size: 14px !important;
+  margin-bottom: 2px !important;
+}
+.contact-card-v2 p {
+  font-size: 12px !important;
+}
+
+/* ============== MOBILE: photo SCAM AU-DESSUS du texte ============== */
+@media (max-width: 920px) {
+  .section { padding: 70px 20px !important; }
+  .sub-section { margin-top: 70px !important; }
+
+  /* Use flex-direction column-reverse to put visual above text */
+  .hero-about {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
+  }
+  .ha-right {
+    display: grid !important;
+    order: -1 !important;  /* Push visual to top */
+  }
+  .ha-left {
+    order: 1 !important;
+  }
+  .visual-card {
+    width: 220px !important;
+    height: 220px !important;
+    margin: 0 auto !important;
+  }
+
+  /* On mobile, contact cards stay 2x2 */
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+    max-width: 100% !important;
+  }
+}
