@@ -993,3 +993,281 @@ body { padding-top: 100px; }
 .btn-load-more svg {
   transition: transform 0.25s ease;
 }
+
+/* =============== NEW CONTACT CARDS — premium horizontal style =============== */
+.contact-cards {
+  max-width: 1080px !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 18px !important;
+}
+
+.contact-card-v2 {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 22px !important;
+  background: #080808 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 26px !important;
+  text-align: left !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+[data-theme="light"] .contact-card-v2 {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.contact-card-v2::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+.contact-card-v2:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent) !important;
+  box-shadow:
+    0 20px 40px -15px color-mix(in srgb, var(--accent) 35%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent) !important;
+}
+.contact-card-v2:hover::before { opacity: 1; }
+
+/* The icon container — square rounded with sharp gradient */
+.contact-card-v2 .cc-icon {
+  flex-shrink: 0;
+  width: 58px !important;
+  height: 58px !important;
+  margin: 0 !important;
+  border-radius: 14px !important;
+  display: grid !important;
+  place-items: center !important;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.5) !important;
+}
+.contact-card-v2 .cc-icon svg {
+  width: 26px !important;
+  height: 26px !important;
+}
+
+/* Text block */
+.contact-card-v2 > :not(.cc-icon) {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.contact-card-v2 h3 {
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  color: #fff !important;
+  letter-spacing: -0.5px !important;
+  line-height: 1.1 !important;
+  margin: 0 0 4px 0 !important;
+}
+[data-theme="light"] .contact-card-v2 h3 { color: #0a0c10 !important; }
+.contact-card-v2 p {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #9ca3af !important;
+  margin: 0 !important;
+  letter-spacing: 0.1px;
+}
+
+/* Mobile responsive for contact cards */
+@media (max-width: 920px) {
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  .contact-card-v2 {
+    padding: 16px !important;
+    border-radius: 20px !important;
+    gap: 12px !important;
+  }
+  .contact-card-v2 .cc-icon {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 11px !important;
+  }
+  .contact-card-v2 .cc-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .contact-card-v2 h3 {
+    font-size: 16px !important;
+  }
+  .contact-card-v2 p {
+    font-size: 11px !important;
+  }
+}
+
+/* =============== IMPROVED FOOTER =============== */
+.site-footer {
+  border-top: 1px solid var(--border-soft);
+  padding: 50px 56px 30px;
+  margin-top: 100px;
+  background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.03));
+}
+.site-footer .footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+}
+.site-footer .footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-bottom: 28px;
+}
+.site-footer .footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.footer-brand-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+.footer-brand-role {
+  font-size: 12.5px;
+  color: var(--text-mute);
+  font-weight: 500;
+}
+.site-footer .footer-links {
+  display: flex;
+  gap: 8px;
+}
+.site-footer .footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+.site-footer .footer-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-card));
+  transform: translateY(-1px);
+}
+
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 4px 0;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 24px;
+}
+.footer-copyright,
+.footer-built {
+  font-size: 13px;
+  color: var(--text-mute);
+  font-weight: 500;
+}
+.footer-built .heart {
+  display: inline-block;
+  animation: heartbeat 1.8s ease-in-out infinite;
+  font-size: 14px;
+  margin-left: 2px;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.15); }
+  20% { transform: scale(1.05); }
+}
+
+@media (max-width: 920px) {
+  .site-footer {
+    padding: 40px 20px 24px;
+  }
+  .site-footer .footer-top,
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  .footer-brand-text {
+    align-items: center;
+  }
+}
+
+/* =============== FIX: text block wrapping in contact cards =============== */
+/* Wrap title + subtitle in a stacked column with proper min-width */
+.contact-card-v2 {
+  min-width: 0 !important;
+}
+.contact-card-v2 > h3 {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.contact-card-v2 > p {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+/* Group title + subtitle as flex column inside the card */
+.contact-card-v2 {
+  align-items: center !important;
+}
+.contact-card-v2 .cc-text-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Slight adjustment for 4-cards-in-row layout */
+@media (min-width: 921px) {
+  .contact-card-v2 h3 {
+    font-size: 20px !important;
+  }
+  .contact-card-v2 .cc-icon {
+    width: 52px !important;
+    height: 52px !important;
+  }
+  .contact-card-v2 .cc-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+
+/* Final mobile tuning: allow long words like WhatsApp to wrap or shrink */
+@media (max-width: 540px) {
+  .contact-card-v2 h3 {
+    font-size: 14px !important;
+  }
+  .contact-card-v2 p {
+    font-size: 10.5px !important;
+  }
+}
