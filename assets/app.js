@@ -228,7 +228,7 @@
           });
           const remaining = done.length - MAX_DONE;
           html.push(`<div class="cert-view-more"><button type="button" id="loadMoreCerts" class="btn-load-more">
-            <span>${dict['cert.more'] || 'Load More'}</span>
+            <span style="color:var(--success)">${dict['cert.more'] || 'Load More'}</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
           </button></div>`);
         }
@@ -402,7 +402,7 @@
     updateCounterTarget('qs-edu', displayedTotalHours);
 
     container.innerHTML = `
-      <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
+      <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE (TOP 5)</span>' : ''}</h3>
       <div class="edu-bars">
         ${top5.map(([name, mins]) => {
           const pct = Math.max(8, Math.round(mins / maxMin * 100));
