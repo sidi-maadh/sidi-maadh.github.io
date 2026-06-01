@@ -598,12 +598,24 @@
     });
   }
 
+  // ============ DYNAMIC PROJECTS & TECH COUNT ============
+  function updateProjectsAndTechCount() {
+    // Count all project cards (visible + hidden "extra-project")
+    const projectCount = document.querySelectorAll('.proj-card').length;
+    updateCounterTarget('qs-projects', projectCount);
+
+    // Count all tech chips
+    const techCount = document.querySelectorAll('.chip[data-tech]').length;
+    updateCounterTarget('qs-techs', techCount);
+  }
+
   // ============ INIT ============
   try {
     setTheme(localStorage.getItem('theme') || 'dark');
     applyLang(localStorage.getItem('lang') || 'en');
   } catch (_) { setTheme('dark'); applyLang('en'); }
   injectTechLogos();
+  updateProjectsAndTechCount();
   loadCodeforces();
   loadLeetCode();
   loadCertifications();
