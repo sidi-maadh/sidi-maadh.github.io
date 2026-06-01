@@ -99,21 +99,87 @@
     });
   });
   function revealItems(container) {
-    container.querySelectorAll('[data-reveal]').forEach((el, i) => {
-      el.classList.remove('reveal');
-      setTimeout(() => el.classList.add('reveal'), 60 + i * 100);
+    container.querySelectorAll('.tl-item').forEach((el, i) => {
+      el.classList.remove('revealed');
+      setTimeout(() => el.classList.add('revealed'), 60 + i * 100);
     });
   }
 
-  // ============ SCROLL REVEAL ============
-  if ('IntersectionObserver' in window) {
+  // ============ SCROLL REVEAL (auto-tagging + IntersectionObserver) ============
+  // Auto-tag elements with reveal classes based on their type/context.
+  function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: show everything
+      document.querySelectorAll('.reveal-init').forEach(el => el.classList.add('revealed'));
+      return;
+    }
+
+    // Auto-tag rules: selector → reveal classes (string of space-separated classes)
+    const tagRules = [
+      // Section headers: titles slide up
+      ['.sec-header',            'reveal-init reveal-up'],
+      ['.contact-title',         'reveal-init reveal-up'],
+
+      // Hero (about) — slide in from sides
+      ['.ha-left',               'reveal-init reveal-left'],
+      ['.ha-right',              'reveal-init reveal-right'],
+
+      // Quick stats: stagger fade-up
+      ['.quick-stats',           'reveal-init reveal-fade reveal-stagger'],
+
+      // Tech stack groups
+      ['.tech-group',            'reveal-init reveal-up'],
+      ['.tech-chips',            'reveal-stagger'],
+
+      // Projects grid
+      ['.proj-grid',             'reveal-init reveal-fade reveal-stagger'],
+
+      // Certifications blocks
+      ['.cert-block',            'reveal-init reveal-up'],
+
+      // Self Education bars
+      ['.edu-bars',              'reveal-init reveal-up reveal-stagger'],
+
+      // Contact cards
+      ['.contact-cards',         'reveal-init reveal-fade reveal-stagger'],
+      ['.contact-form',          'reveal-init reveal-up'],
+
+      // Footer
+      ['.site-footer .footer-top',    'reveal-init reveal-up'],
+      ['.site-footer .footer-bottom', 'reveal-init reveal-fade'],
+
+      // Seg toggle button
+      ['.seg-toggle',            'reveal-init reveal-scale'],
+
+      // Already-tagged timeline items: just ensure init class
+      ['.tl-item',               'reveal-init'],
+    ];
+
+    tagRules.forEach(([selector, classes]) => {
+      document.querySelectorAll(selector).forEach(el => {
+        classes.split(' ').forEach(c => el.classList.add(c));
+      });
+    });
+
+    // Timeline items use reveal-left / reveal-right based on their side
+    document.querySelectorAll('.tl-item.tl-left').forEach(el => el.classList.add('reveal-left'));
+    document.querySelectorAll('.tl-item.tl-right').forEach(el => el.classList.add('reveal-right'));
+
+    // Observer to add .revealed when element enters viewport
     const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('reveal'); obs.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('[data-reveal]').forEach((el) => obs.observe(el));
-  } else {
-    document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('reveal'));
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal-init').forEach(el => obs.observe(el));
   }
+
+  // Replaced the old simple reveal observer; remove old [data-reveal] observer reference
+  // (the timeline JS still uses revealItems() for tab switching — keep it)
 
   // ============ SCROLL SPY ============
   const sections = document.querySelectorAll('section[id]');
@@ -607,6 +673,11 @@
     // Count all tech chips
     const techCount = document.querySelectorAll('.chip[data-tech]').length;
     updateCounterTarget('qs-techs', techCount);
+
+    // Count years of experience from the Experience timeline items
+    // Each .tl-item inside #tl-experience represents one experience
+    const expCount = document.querySelectorAll('#tl-experience .tl-item').length;
+    updateCounterTarget('qs-years', expCount);
   }
 
   // ============ INIT ============
@@ -616,6 +687,7 @@
   } catch (_) { setTheme('dark'); applyLang('en'); }
   injectTechLogos();
   updateProjectsAndTechCount();
+  initScrollReveal();
   loadCodeforces();
   loadLeetCode();
   loadCertifications();
