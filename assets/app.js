@@ -468,7 +468,7 @@
     updateCounterTarget('qs-edu', displayedTotalHours);
 
     container.innerHTML = `
-      <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE (TOP 5)</span>' : ''}</h3>
+      <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
       <div class="edu-bars">
         ${top5.map(([name, mins]) => {
           const pct = Math.max(8, Math.round(mins / maxMin * 100));
@@ -674,10 +674,8 @@
     const techCount = document.querySelectorAll('.chip[data-tech]').length;
     updateCounterTarget('qs-techs', techCount);
 
-    // Count years of experience from the Experience timeline items
-    // Each .tl-item inside #tl-experience represents one experience
-    const expCount = document.querySelectorAll('#tl-experience .tl-item').length;
-    updateCounterTarget('qs-years', expCount);
+    // Years of experience: ~6 months of internships = 1+ year
+    updateCounterTarget('qs-years', 1);
   }
 
   // ============ INIT ============
