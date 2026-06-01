@@ -1844,3 +1844,55 @@ body { padding-top: 100px; }
   }
 }
 
+
+/* ============================================================
+   MOBILE NAVBAR: equal sizes for SCAM · FR · ☀ · ✕
+   ============================================================ */
+@media (max-width: 920px) {
+  /* All four elements share the same visual height */
+  .nav .brand,
+  .nav .icon-btn {
+    height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  .nav .icon-btn {
+    width: 36px !important;
+  }
+  /* SCAM text sized to match button height visually */
+  .brand-scam {
+    font-size: 18px !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 100% !important;
+  }
+  /* Consistent button radius — all perfect circles or pills */
+  .nav .icon-btn,
+  .nav .icon-btn.burger {
+    border-radius: 50% !important;
+  }
+  /* Tight spacing between all action items */
+  .nav-actions {
+    gap: 8px !important;
+    align-items: center !important;
+  }
+  /* Ensure the SCAM logo and the actions group are vertically centered together */
+  .nav {
+    align-items: center !important;
+    padding: 8px 14px !important;
+  }
+}
+
+@media (max-width: 540px) {
+  .nav .brand,
+  .nav .icon-btn {
+    height: 34px !important;
+  }
+  .nav .icon-btn {
+    width: 34px !important;
+  }
+  .brand-scam {
+    font-size: 17px !important;
+  }
+}
