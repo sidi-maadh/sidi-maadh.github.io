@@ -1896,3 +1896,64 @@ body { padding-top: 100px; }
     font-size: 17px !important;
   }
 }
+
+/* ============================================================
+   FIX: perfectly center content inside .icon-btn circles
+   ============================================================ */
+
+/* Reset and use grid place-items for bulletproof centering */
+.nav .icon-btn {
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  /* Override any inline-flex from earlier rules */
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* The FR/EN label span centered with no offset */
+.nav .icon-btn #lang-label,
+.nav .icon-btn span#lang-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* SVG icons (sun / moon) — strip any margins, center horizontally */
+.nav .icon-btn svg {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+/* Don't override the inline display:none that toggles between sun/moon */
+.nav #icon-moon[style*="display: none"],
+.nav #icon-sun[style*="display: none"] {
+  display: none !important;
+}
+
+/* Burger bars: ensure the wrapper has no extra padding shifting them */
+.nav .icon-btn.burger {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 0 !important;
+}
+
+/* ============================================================
+   FIX: ensure burger is hidden on desktop (override grid display)
+   ============================================================ */
+@media (min-width: 921px) {
+  .icon-btn.burger,
+  .nav .icon-btn.burger {
+    display: none !important;
+  }
+}
