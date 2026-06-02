@@ -28,19 +28,19 @@
     AU: { lat: -25.2744,lng: 133.7751, name: 'Australia',    continent: 'oceania'  },
   };
 
-  // Continent colors — distinct from "Project location" yellow and "Visited" violet
+  // Continent colors — distinct from "Project location" yellow and "Visited" bright red
   const CONTINENT_COLORS = {
-    africa:   '#ef4444',  // coral red
-    asia:     '#f97316',  // orange (was violet — conflict with Visited markers)
+    africa:   '#a855f7',  // violet (was red — conflict with Visited red markers)
+    asia:     '#f97316',  // orange
     europe:   '#3b82f6',  // blue
     namerica: '#10b981',  // green
-    samerica: '#ec4899',  // pink (was orange — keeps distinction from Asia)
+    samerica: '#ec4899',  // pink
     oceania:  '#06b6d4',  // cyan
   };
 
   // Marker colors per mode (distinct from continent colors)
   const PROJECT_MARKER_COLOR = '#fbbf24';   // gold
-  const VISITED_MARKER_COLOR = '#a855f7';   // violet (matches portfolio palette)
+  const VISITED_MARKER_COLOR = '#ff3838';   // bright red — maximum contrast on land/ocean
 
   // Visited countries (hardcoded — these are the places Sidi actually visited)
   const VISITED_ISO = ['MR', 'TN', 'MA'];
@@ -313,6 +313,12 @@
       for (let i = 0; i < ring.length; i += step) sampled.push(ring[i]);
       if (sampled.length < 3) return;
 
+      // ===== Skip Antarctica (creates artifacts around the south pole) =====
+      // Detect if the polygon is mostly below -60° latitude → Antarctica
+      let southCount = 0;
+      sampled.forEach(([, lat]) => { if (lat < -60) southCount++; });
+      if (southCount / sampled.length > 0.5) return;
+
       // ===== Fix for Russia & other antimeridian-crossing polygons =====
       // Detect if the ring crosses the 180° line (longitude wraps from +180 to -180)
       // Split it into two rings: one for east hemisphere, one for west
@@ -406,6 +412,11 @@
       opacity: 0.55,
     });
     countriesLines.forEach(line => {
+      // Skip Antarctica lines (mostly south of -60° latitude)
+      let southCount = 0;
+      line.forEach(([, lat]) => { if (lat < -60) southCount++; });
+      if (southCount / line.length > 0.5) return;
+
       const points = line.map(([lng, lat]) => {
         // Above the continent surface (which is at RADIUS + 0.4)
         const v = latLngToVec3(lat, lng, RADIUS + 0.6);
