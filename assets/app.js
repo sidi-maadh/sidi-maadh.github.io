@@ -49,7 +49,13 @@
     const dict = (window.I18N && window.I18N[lang]) || {};
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const k = el.getAttribute('data-i18n');
-      if (dict[k]) el.textContent = dict[k];
+      if (dict[k]) {
+        if (/<[a-z][^>]*>/i.test(dict[k])) {
+          el.innerHTML = dict[k];
+        } else {
+          el.textContent = dict[k];
+        }
+      }
     });
     document.querySelectorAll('[data-i18n-ph]').forEach((el) => {
       const k = el.getAttribute('data-i18n-ph');
@@ -58,6 +64,8 @@
     injectTechLogos();
     try { localStorage.setItem('lang', lang); } catch (_) {}
   };
+  // Expose globally so other scripts (globe.js, dynamic loaders) can re-apply translations
+  window.applyLang = applyLang;
   langBtn.addEventListener('click', () => applyLang(curLang === 'en' ? 'fr' : 'en'));
 
   // ============ TECH LOGOS INJECTION ============
@@ -283,7 +291,7 @@
       const html = [];
 
       if (done.length) {
-        html.push(`<div class="cert-block"><h3 class="cert-status-title done">${dict['cert.h.done'] || 'COMPLETED'}</h3>`);
+        html.push(`<div class="cert-block"><h3 class="cert-status-title done" data-i18n="cert.h.done">${dict['cert.h.done'] || 'COMPLETED'}</h3>`);
         // Show first MAX_DONE
         done.slice(0, MAX_DONE).forEach(c => html.push(buildRow(c, 'done-row', 'done')));
         // Hide the rest, will reveal 2 per Load More click
@@ -294,24 +302,26 @@
           });
           const remaining = done.length - MAX_DONE;
           html.push(`<div class="cert-view-more"><button type="button" id="loadMoreCerts" class="btn-load-more">
-            <span>${dict['cert.more'] || 'Load More'}</span>
+            <span data-i18n="cert.more">${dict['cert.more'] || 'Load More'}</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
           </button></div>`);
         }
         html.push('</div>');
       }
       if (active.length) {
-        html.push(`<div class="cert-block"><h3 class="cert-status-title active">${dict['cert.h.active'] || 'IN PROGRESS'}</h3>`);
+        html.push(`<div class="cert-block"><h3 class="cert-status-title active" data-i18n="cert.h.active">${dict['cert.h.active'] || 'IN PROGRESS'}</h3>`);
         active.forEach(c => html.push(buildRow(c, 'active-row', 'active')));
         html.push('</div>');
       }
       if (planned.length) {
-        html.push(`<div class="cert-block"><h3 class="cert-status-title planned">${dict['cert.h.planned'] || 'PLANNED'}</h3><div class="cert-planned-grid">`);
+        html.push(`<div class="cert-block"><h3 class="cert-status-title planned" data-i18n="cert.h.planned">${dict['cert.h.planned'] || 'PLANNED'}</h3><div class="cert-planned-grid">`);
         planned.forEach(c => html.push(buildTile(c, 'planned')));
         html.push('</div></div>');
       }
       container.innerHTML = html.join('');
       container.classList.remove('cert-loading');
+      // Re-apply translations to newly injected content
+      if (window.applyLang) window.applyLang(curLang);
 
       // Wire up Load More button for hidden certifications
       const certLoadMore = document.getElementById('loadMoreCerts');
@@ -320,7 +330,7 @@
           const hiddenCerts = container.querySelectorAll('.cert-row.hidden-cert');
           let revealed = 0;
           for (const row of hiddenCerts) {
-            if (revealed >= 2) break;
+            if (revealed >= 4) break;
             row.classList.remove('hidden-cert');
             row.style.opacity = '0';
             row.style.transform = 'translateX(-10px)';
@@ -468,7 +478,7 @@
     updateCounterTarget('qs-edu', displayedTotalHours);
 
     container.innerHTML = `
-      <h3 class="edu-bars-title">${dict['edu.hours'] || 'HOURS BY FIELD'}${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
+      <h3 class="edu-bars-title"><span data-i18n="edu.hours">${dict['edu.hours'] || 'HOURS BY FIELD'}</span>${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
       <div class="edu-bars">
         ${top5.map(([name, mins]) => {
           const pct = Math.max(8, Math.round(mins / maxMin * 100));
@@ -481,11 +491,12 @@
       <div class="edu-source">
         <a href="https://docs.google.com/spreadsheets/d/1ZML9h4zXsLC8KIx6g4DR-lsSJ7VzN-aj-Meo9Lrdt7w/edit" target="_blank" rel="noopener" class="tracker-link">
           <span class="live-dot"></span>
-          <span>${dict['edu.tracker'] || 'Live tracker · My Self-Education Sheet'}</span>
+          <span data-i18n="edu.tracker">${dict['edu.tracker'] || 'Live tracker · My Self-Education Sheet'}</span>
         </a>
       </div>
     `;
     container.classList.remove('edu-loading');
+    if (window.applyLang) window.applyLang(curLang);
   }
 
   // ============ CONTACT FORM (EmailJS + validation) ============
