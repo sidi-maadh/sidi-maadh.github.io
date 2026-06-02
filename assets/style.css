@@ -1957,3 +1957,360 @@ body { padding-top: 100px; }
     display: none !important;
   }
 }
+
+/* ============================================================
+   MY JOURNEY — 3D Globe section
+   ============================================================ */
+.section-journey {
+  padding: 100px 56px;
+}
+
+.journey-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+/* Globe canvas wrapper */
+.journey-globe-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+#journey-globe {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(139,92,246,0.08), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(59,130,246,0.06), transparent 60%);
+  overflow: hidden;
+}
+#journey-globe canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: grab;
+}
+#journey-globe canvas:active { cursor: grabbing; }
+
+.journey-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px currentColor;
+}
+
+/* Right side text */
+.journey-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.journey-text h3 {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.journey-text p {
+  font-size: 15px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.journey-text p strong {
+  color: var(--text);
+  font-weight: 700;
+}
+.journey-cta {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+/* Sub-sections (Languages & Projects reach) */
+.journey-sub {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+}
+.journey-sub:last-child { margin-bottom: 0; }
+
+.journey-sub-title {
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 800;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* Languages grid */
+.lang-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.lang-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lang-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: 0 14px 30px -10px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.lang-flag {
+  font-size: 36px;
+  line-height: 1;
+}
+.lang-info { display: flex; flex-direction: column; gap: 2px; }
+.lang-name { font-size: 17px; font-weight: 700; color: var(--text); }
+.lang-level { font-size: 12.5px; color: var(--text-mute); font-weight: 500; }
+.lang-bar {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 4px;
+  background: var(--bg-soft);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.lang-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-3), var(--accent));
+  border-radius: 100px;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* Projects reach */
+.reach-stat {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.reach-stat::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%);
+  pointer-events: none;
+}
+.reach-number {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 16px;
+  position: relative;
+}
+.reach-number #reach-count {
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.reach-label {
+  font-size: clamp(15px, 2vw, 20px);
+  color: var(--text-soft);
+  font-weight: 500;
+}
+.reach-countries {
+  font-size: clamp(28px, 4.5vw, 48px);
+  background: linear-gradient(135deg, var(--accent-2), #34d399);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.reach-countries .counter { display: inline; }
+.reach-countries span:last-child {
+  font-size: clamp(15px, 2vw, 20px);
+  color: var(--text-soft);
+  font-weight: 500;
+  background: none;
+  -webkit-text-fill-color: var(--text-soft);
+}
+.reach-desc {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 14.5px;
+  color: var(--text-mute);
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Mobile responsive */
+@media (max-width: 920px) {
+  .section-journey { padding: 70px 20px; }
+  .journey-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  #journey-globe { max-width: 320px; }
+  .journey-text { text-align: center; align-items: center; }
+  .journey-text h3 { background: linear-gradient(135deg, var(--accent-3), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .journey-cta { align-self: center; }
+  .lang-grid { grid-template-columns: 1fr; gap: 12px; }
+  .lang-card { padding: 18px; }
+  .reach-stat { padding: 30px 20px; }
+}
+
+/* ============================================================
+   GLOBAL PRESENCE — Toggle + Stats per continent
+   ============================================================ */
+
+/* Bigger globe */
+#journey-globe {
+  max-width: 560px !important;
+  aspect-ratio: 1;
+}
+@media (max-width: 920px) {
+  #journey-globe { max-width: 360px !important; }
+}
+
+/* Toggle buttons above globe */
+.globe-toggle {
+  display: inline-flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 4px;
+  margin-bottom: 8px;
+}
+.globe-tab {
+  padding: 8px 18px;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  color: var(--text-mute);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.globe-tab:hover {
+  color: var(--text);
+}
+.globe-tab.active {
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  color: white;
+  box-shadow: 0 4px 12px -4px var(--accent);
+}
+
+/* Stats container below globe */
+.globe-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: opacity 0.3s ease;
+}
+.gs-total {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.gs-total-num {
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+}
+.gs-total-label {
+  font-size: 14px;
+  color: var(--text-soft);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.gs-continents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+}
+.gs-cont {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: 100px;
+  font-size: 12.5px;
+}
+.gs-cont-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+.gs-cont-name {
+  color: var(--text-soft);
+  font-weight: 500;
+}
+.gs-cont-count {
+  color: var(--text);
+  font-weight: 700;
+}
+
