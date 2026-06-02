@@ -163,6 +163,13 @@ window.I18N = {
     "ctc.eye": "// let's connect",
     "cert.sub": "A growing collection of certifications and specializations — proof of continuous learning across AI, ML, and software engineering.",
     "edu.eye": "// daily practice",
+    "jrn.lang.title": "Languages I speak",
+    "jrn.lang.ar": "Arabic",
+    "jrn.lang.ar.lvl": "Native",
+    "jrn.lang.fr": "French",
+    "jrn.lang.fr.lvl": "Fluent",
+    "jrn.lang.en": "English",
+    "jrn.lang.en.lvl": "Professional",
   },
   fr: {
     "nav.home": "Accueil",
@@ -328,5 +335,12 @@ window.I18N = {
     "ctc.eye": "// connectons-nous",
     "cert.sub": "Une collection grandissante de certifications et spécialisations — preuve d'un apprentissage continu en IA, ML et génie logiciel.",
     "edu.eye": "// pratique quotidienne",
+    "jrn.lang.title": "Langues que je parle",
+    "jrn.lang.ar": "Arabe",
+    "jrn.lang.ar.lvl": "Natif",
+    "jrn.lang.fr": "Français",
+    "jrn.lang.fr.lvl": "Courant",
+    "jrn.lang.en": "Anglais",
+    "jrn.lang.en.lvl": "Professionnel",
   }
 };
