@@ -68,6 +68,7 @@ window.I18N = {
     "cert.h.done": "COMPLETED",
     "cert.h.active": "IN PROGRESS",
     "cert.h.planned": "PLANNED",
+    "cert.more": "Load More",
 
     "edu.eye": "// daily learning",
     "edu.title": "Self Education",
@@ -240,6 +241,7 @@ window.I18N = {
     "cert.h.done": "TERMINÉES",
     "cert.h.active": "EN COURS",
     "cert.h.planned": "PRÉVUES",
+    "cert.more": "Voir plus",
 
     "edu.eye": "// apprentissage quotidien",
     "edu.title": "Auto-formation",
