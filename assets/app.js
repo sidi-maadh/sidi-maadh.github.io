@@ -271,6 +271,88 @@
       // Quick-stat card
       updateCounterTarget('qs-cert', done.length);
 
+      // ============ OFFICIAL ORGANIZATION LOGOS ============
+      // Authentic SVG paths from Simple Icons / official brand resources
+      const platformLogos = {
+        // Coursera — official blue C
+        coursera: '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="#0056D2" d="M11.374 23.977C4.834 23.65-.318 18.06.015 11.434.345 4.876 5.918-.286 12.483.013c6.56.299 11.756 5.91 11.456 12.467-.302 6.605-5.926 11.84-12.565 11.497zm.582-7.247c2.605.04 4.794-2.082 4.84-4.69.045-2.61-2.057-4.805-4.673-4.882-2.604-.077-4.793 2.061-4.876 4.764-.082 2.643 2.066 4.766 4.71 4.808z"/></svg>',
+
+        // AWS — official orange smile
+        aws: '<svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><g fill="#FF9900"><path d="M6.763 10.036c0 .296.032.535.088.71.064.176.144.368.256.576.04.063.056.127.056.183 0 .08-.048.16-.152.24l-.503.335a.383.383 0 01-.208.072c-.08 0-.16-.04-.239-.112a2.47 2.47 0 01-.287-.375 6.18 6.18 0 01-.248-.471c-.622.734-1.405 1.101-2.347 1.101-.67 0-1.205-.191-1.596-.574-.391-.384-.59-.894-.59-1.533 0-.678.239-1.23.726-1.644.487-.415 1.133-.623 1.955-.623.272 0 .551.024.846.064.296.04.6.104.918.176v-.583c0-.607-.127-1.03-.375-1.277-.255-.248-.686-.367-1.3-.367-.28 0-.568.031-.863.103-.295.072-.583.16-.862.272a2.287 2.287 0 01-.28.104.488.488 0 01-.127.023c-.112 0-.168-.08-.168-.247v-.391c0-.128.016-.224.056-.28a.597.597 0 01.224-.167c.279-.144.614-.264 1.005-.36a4.84 4.84 0 011.246-.151c.95 0 1.644.216 2.091.647.439.43.662 1.085.662 1.963v2.586z"/><path d="M21.698 17.43c-2.626 1.94-6.443 2.97-9.722 2.97-4.595 0-8.732-1.7-11.857-4.524-.247-.223-.024-.526.27-.350 3.376 1.96 7.553 3.144 11.873 3.144 2.91 0 6.107-.607 9.058-1.852.439-.2.81.288.378.612zM22.794 16.18c-.336-.43-2.22-.207-3.073-.103-.255.032-.295-.192-.063-.36 1.5-1.053 3.967-.75 4.254-.399.287.36-.08 2.83-1.485 4.012-.215.184-.423.088-.327-.151.32-.79 1.03-2.57.694-2.999z"/></g></svg>',
+
+        // Stanford — official cardinal red "S" inside shape
+        stanford: '<svg viewBox="0 0 100 100" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="14" fill="#8C1515"/><text x="50" y="68" font-family="Georgia, serif" font-size="60" font-weight="700" fill="#fff" text-anchor="middle">S</text></svg>',
+
+        // IBM — iconic 8-bar stacked horizontal lines logo
+        ibm: '<svg viewBox="0 0 32 13" width="28" height="14" xmlns="http://www.w3.org/2000/svg"><g fill="#1F70C1"><rect y="0" width="32" height="1"/><rect y="2" width="32" height="1"/><rect y="4" width="32" height="1"/><rect y="6" width="32" height="1"/><rect y="8" width="32" height="1"/><rect y="10" width="32" height="1"/><rect y="12" width="32" height="1"/></g></svg>',
+
+        // DeepLearning.AI — official purple/blue
+        deeplearning: '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="dlg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#dlg)"/><circle cx="7" cy="9" r="1.4" fill="#fff"/><circle cx="12" cy="6.5" r="1.4" fill="#fff"/><circle cx="17" cy="9" r="1.4" fill="#fff"/><circle cx="9" cy="15" r="1.4" fill="#fff"/><circle cx="15" cy="15" r="1.4" fill="#fff"/><circle cx="12" cy="18" r="1.2" fill="#fff"/><g stroke="#fff" stroke-width="0.8" opacity="0.7"><line x1="7" y1="9" x2="12" y2="6.5"/><line x1="12" y1="6.5" x2="17" y2="9"/><line x1="7" y1="9" x2="9" y2="15"/><line x1="17" y1="9" x2="15" y2="15"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="12" y1="6.5" x2="9" y2="15"/><line x1="12" y1="6.5" x2="15" y2="15"/><line x1="9" y1="15" x2="12" y2="18"/><line x1="15" y1="15" x2="12" y2="18"/></g></svg>',
+
+        // Google — official 4-color G
+        google: '<svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>',
+
+        // Udemy — official purple
+        udemy: '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="#A435F0" d="M11.997.06L5.36 3.84l6.637 3.776L18.633 3.84zM5.232 9.135v6.135C5.232 19.305 8.295 22 12 22s6.768-2.695 6.768-6.73V9.135l-3.305 1.88v4.07c0 2.038-1.563 3.305-3.463 3.305s-3.463-1.267-3.463-3.305v-4.07z"/></svg>',
+
+        // Microsoft — official 4-square
+        microsoft: '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>',
+
+        // Meta / Facebook
+        meta: '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="#0866FF" d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.469h-2.796v8.385C19.612 22.954 24 17.99 24 12z"/></svg>',
+
+        // NVIDIA
+        nvidia: '<svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path fill="#76B900" d="M8.948 9.378v-1.41c.14-.01.282-.017.425-.017 3.93-.123 6.508 3.378 6.508 3.378s-2.784 3.866-5.768 3.866c-.41 0-.795-.066-1.165-.18v-4.27c1.51.183 1.815.852 2.722 2.366l2.013-1.696s-1.47-1.93-3.95-1.93c-.27 0-.527.02-.785.04m0-4.668v2.1c.14-.01.282-.018.425-.022 5.46-.184 9.024 4.477 9.024 4.477s-4.09 4.97-8.343 4.97c-.388 0-.752-.036-1.106-.097v1.302c.303.04.617.062.94.062 3.957 0 6.82-2.022 9.594-4.412.46.37 2.346 1.27 2.733 1.665-2.638 2.21-8.787 3.99-12.265 3.99-.337 0-.66-.02-.978-.05v1.83H24V4.71H8.948m0 10.18v1.12c-3.66-.65-4.674-4.458-4.674-4.458s1.756-1.94 4.674-2.258v1.225h-.006c-1.532-.184-2.732 1.246-2.732 1.246s.677 2.424 2.738 3.124M1.605 11.166s2.167-3.198 6.342-3.516V6.532C3.328 6.91 0 10.836 0 10.836s1.886 5.45 7.948 6.02v-1.222c-4.446-.557-6.343-4.468-6.343-4.468"/></svg>',
+
+        // edX
+        edx: '<svg viewBox="0 0 24 24" width="22" height="14" xmlns="http://www.w3.org/2000/svg"><text x="12" y="14" font-family="Arial Black, sans-serif" font-size="12" font-weight="900" fill="#02262B" text-anchor="middle">ed<tspan fill="#B82339">X</tspan></text></svg>',
+
+        // LinkedIn Learning
+        linkedin: '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="#0A66C2" d="M20.452 20.452h-3.554v-5.569c0-1.328-.025-3.037-1.852-3.037-1.854 0-2.137 1.446-2.137 2.94v5.667H9.355V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.268 2.37 4.268 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9H7.12v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+
+        // Kaggle
+        kaggle: '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="#20BEFF" d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.166.034.279-.036.339l-6.555 6.344 6.836 8.643c.095.142.103.286.07.388z"/></svg>',
+
+        // Andrew Ng → use deeplearning as he founded DeepLearning.AI
+        'andrew ng': '<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ngg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#ngg)"/><circle cx="7" cy="9" r="1.4" fill="#fff"/><circle cx="12" cy="6.5" r="1.4" fill="#fff"/><circle cx="17" cy="9" r="1.4" fill="#fff"/><circle cx="9" cy="15" r="1.4" fill="#fff"/><circle cx="15" cy="15" r="1.4" fill="#fff"/><circle cx="12" cy="18" r="1.2" fill="#fff"/></svg>',
+      };
+
+      // Aliases — multiple keys can match the same logo
+      const logoAliases = {
+        'deeplearning.ai': 'deeplearning',
+        'dlai': 'deeplearning',
+        'amazon web services': 'aws',
+        'amazon': 'aws',
+        'gcp': 'google',
+        'google cloud': 'google',
+        'azure': 'microsoft',
+        'mit': 'stanford',  // No MIT logo but use similar style as fallback
+        'facebook': 'meta',
+      };
+
+      function getOrgLogo(text) {
+        if (!text) return '';
+        const lower = text.toLowerCase().trim();
+        // 1. Exact key match
+        if (platformLogos[lower]) return platformLogos[lower];
+        // 2. Alias match
+        if (logoAliases[lower] && platformLogos[logoAliases[lower]]) {
+          return platformLogos[logoAliases[lower]];
+        }
+        // 3. Substring search — check each known logo key against the text
+        for (const key of Object.keys(platformLogos)) {
+          if (lower.includes(key)) return platformLogos[key];
+        }
+        // 4. Substring search through aliases
+        for (const [alias, targetKey] of Object.entries(logoAliases)) {
+          if (lower.includes(alias)) return platformLogos[targetKey] || '';
+        }
+        return '';
+      }
+
+      // Backward compat alias
+      const getPlatformLogo = getOrgLogo;
+
       const buildRow = (cert, sc, statusGroup) => {
         const url = resolveCertUrl(cert, statusGroup);
         const tag = url ? 'a' : 'div';
@@ -478,7 +560,7 @@
     updateCounterTarget('qs-edu', displayedTotalHours);
 
     container.innerHTML = `
-      <h3 class="edu-bars-title"><span data-i18n="edu.hours">${dict['edu.hours'] || 'HOURS BY FIELD'}</span>${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE (TOP 5)</span>' : ''}</h3>
+      <h3 class="edu-bars-title"><span data-i18n="edu.hours">${dict['edu.hours'] || 'HOURS BY FIELD'}</span>${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
       <div class="edu-bars">
         ${top5.map(([name, mins]) => {
           const pct = Math.max(8, Math.round(mins / maxMin * 100));
@@ -496,6 +578,17 @@
       </div>
     `;
     container.classList.remove('edu-loading');
+    // Render last update date (today's date in dd/mm/yyyy format)
+    const updateEl = document.getElementById('edu-update');
+    if (updateEl) {
+      const now = new Date();
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const yyyy = now.getFullYear();
+      const dict = (window.I18N && window.I18N[curLang]) || {};
+      const label = dict['edu.last_update'] || 'Last update';
+      updateEl.innerHTML = `<span class="edu-update-icon">⟳</span> ${label}: <strong>${dd}/${mm}/${yyyy}</strong>`;
+    }
     if (window.applyLang) window.applyLang(curLang);
   }
 
