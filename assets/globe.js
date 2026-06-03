@@ -4,28 +4,28 @@
 (function () {
   'use strict';
 
-  // Country database: ISO2 → lat/lng/name/continent
+  // Country database: ISO2 → lat/lng/name/continent/flag
   const COUNTRIES = {
-    MR: { lat: 18.0735, lng: -15.9582, name: 'Mauritania',   continent: 'africa'   },
-    TN: { lat: 36.8065, lng: 10.1815,  name: 'Tunisia',      continent: 'africa'   },
-    MA: { lat: 31.7917, lng: -7.0926,  name: 'Morocco',      continent: 'africa'   },
-    EG: { lat: 26.8206, lng: 30.8025,  name: 'Egypt',        continent: 'africa'   },
-    ZA: { lat: -30.5595,lng: 22.9375,  name: 'South Africa', continent: 'africa'   },
-    AE: { lat: 24.4539, lng: 54.3773,  name: 'UAE',          continent: 'asia'     },
-    SA: { lat: 23.8859, lng: 45.0792,  name: 'Saudi Arabia', continent: 'asia'     },
-    IN: { lat: 20.5937, lng: 78.9629,  name: 'India',        continent: 'asia'     },
-    JP: { lat: 36.2048, lng: 138.2529, name: 'Japan',        continent: 'asia'     },
-    CN: { lat: 35.8617, lng: 104.1954, name: 'China',        continent: 'asia'     },
-    FR: { lat: 46.6034, lng: 1.8883,   name: 'France',       continent: 'europe'   },
-    DE: { lat: 51.1657, lng: 10.4515,  name: 'Germany',      continent: 'europe'   },
-    GB: { lat: 55.3781, lng: -3.4360,  name: 'UK',           continent: 'europe'   },
-    NL: { lat: 52.1326, lng: 5.2913,   name: 'Netherlands',  continent: 'europe'   },
-    ES: { lat: 40.4637, lng: -3.7492,  name: 'Spain',        continent: 'europe'   },
-    IT: { lat: 41.8719, lng: 12.5674,  name: 'Italy',        continent: 'europe'   },
-    CA: { lat: 56.1304, lng: -106.3468,name: 'Canada',       continent: 'namerica' },
-    US: { lat: 37.0902, lng: -95.7129, name: 'USA',          continent: 'namerica' },
-    BR: { lat: -14.2350,lng: -51.9253, name: 'Brazil',       continent: 'samerica' },
-    AU: { lat: -25.2744,lng: 133.7751, name: 'Australia',    continent: 'oceania'  },
+    MR: { lat: 18.0735, lng: -15.9582, name: 'Mauritania',   continent: 'africa',   flag: '🇲🇷' },
+    TN: { lat: 36.8065, lng: 10.1815,  name: 'Tunisia',      continent: 'africa',   flag: '🇹🇳' },
+    MA: { lat: 31.7917, lng: -7.0926,  name: 'Morocco',      continent: 'africa',   flag: '🇲🇦' },
+    EG: { lat: 26.8206, lng: 30.8025,  name: 'Egypt',        continent: 'africa',   flag: '🇪🇬' },
+    ZA: { lat: -30.5595,lng: 22.9375,  name: 'South Africa', continent: 'africa',   flag: '🇿🇦' },
+    AE: { lat: 24.4539, lng: 54.3773,  name: 'UAE',          continent: 'asia',     flag: '🇦🇪' },
+    SA: { lat: 23.8859, lng: 45.0792,  name: 'Saudi Arabia', continent: 'asia',     flag: '🇸🇦' },
+    IN: { lat: 20.5937, lng: 78.9629,  name: 'India',        continent: 'asia',     flag: '🇮🇳' },
+    JP: { lat: 36.2048, lng: 138.2529, name: 'Japan',        continent: 'asia',     flag: '🇯🇵' },
+    CN: { lat: 35.8617, lng: 104.1954, name: 'China',        continent: 'asia',     flag: '🇨🇳' },
+    FR: { lat: 46.6034, lng: 1.8883,   name: 'France',       continent: 'europe',   flag: '🇫🇷' },
+    DE: { lat: 51.1657, lng: 10.4515,  name: 'Germany',      continent: 'europe',   flag: '🇩🇪' },
+    GB: { lat: 55.3781, lng: -3.4360,  name: 'UK',           continent: 'europe',   flag: '🇬🇧' },
+    NL: { lat: 52.1326, lng: 5.2913,   name: 'Netherlands',  continent: 'europe',   flag: '🇳🇱' },
+    ES: { lat: 40.4637, lng: -3.7492,  name: 'Spain',        continent: 'europe',   flag: '🇪🇸' },
+    IT: { lat: 41.8719, lng: 12.5674,  name: 'Italy',        continent: 'europe',   flag: '🇮🇹' },
+    CA: { lat: 56.1304, lng: -106.3468,name: 'Canada',       continent: 'namerica', flag: '🇨🇦' },
+    US: { lat: 37.0902, lng: -95.7129, name: 'USA',          continent: 'namerica', flag: '🇺🇸' },
+    BR: { lat: -14.2350,lng: -51.9253, name: 'Brazil',       continent: 'samerica', flag: '🇧🇷' },
+    AU: { lat: -25.2744,lng: 133.7751, name: 'Australia',    continent: 'oceania',  flag: '🇦🇺' },
   };
 
   // Continent colors — distinct from "Project location" yellow and "Visited" bright red
@@ -42,8 +42,12 @@
   const PROJECT_MARKER_COLOR = '#fbbf24';   // gold
   const VISITED_MARKER_COLOR = '#ff3838';   // bright red — maximum contrast on land/ocean
 
-  // Visited countries (hardcoded — these are the places Sidi actually visited)
-  const VISITED_ISO = ['MR', 'TN', 'MA'];
+  // Visited countries with year (or 'home' for origin)
+  const VISITED = [
+    { iso: 'MR', year: 'home' },   // Home country (since birth)
+    { iso: 'TN', year: '2025' },   // Visited 2025
+    { iso: 'MA', year: '2024' },   // Visited 2024
+  ];
 
   // ============ Build the projects list dynamically from DOM ============
   function buildProjectsFromDOM() {
@@ -57,7 +61,11 @@
   }
 
   function buildVisitedFromList() {
-    return VISITED_ISO.map(iso => ({ ...COUNTRIES[iso], iso })).filter(c => c.name);
+    return VISITED.map(v => ({
+      ...COUNTRIES[v.iso],
+      iso: v.iso,
+      year: v.year,
+    })).filter(c => c.name);
   }
 
   // Convert lat/lng → 3D position on sphere
@@ -124,7 +132,7 @@
     }
 
     initScene(container);
-    setMode(currentMode);
+    setMode(currentMode, true);  // true = skip animation on init
     setupInteraction(renderer.domElement);
     animate();
     wireToggle();
@@ -437,16 +445,87 @@
     }
   }
 
-  function setMode(mode) {
-    currentMode = mode;
-    clearGroup(markersGroup);
-    clearGroup(arcsGroup);
+  // Store clickable markers' data for raycaster + selected country state
+  let clickableMarkers = [];
+  let selectedCountry = null;
+  let isTransitioning = false;
 
+  function setMode(mode, skipAnimation) {
+    if (isTransitioning && !skipAnimation) return;
+    currentMode = mode;
+    clickableMarkers = [];
+
+    // Animate out: shrink existing markers + arcs, then rebuild
+    const oldMarkers = markersGroup.children.slice();
+    const oldArcs = arcsGroup.children.slice();
+
+    if (oldMarkers.length === 0 || skipAnimation) {
+      buildMarkersForMode(mode);
+      return;
+    }
+
+    isTransitioning = true;
+    const startT = performance.now();
+    const fadeDuration = 350;
+
+    function fadeOut() {
+      const elapsed = performance.now() - startT;
+      const p = Math.min(elapsed / fadeDuration, 1);
+      const scale = 1 - p;
+
+      oldMarkers.forEach(m => {
+        m.scale.setScalar(scale);
+        if (m.material) m.material.opacity = (m.material.opacity || 1) * (1 - p * 0.5);
+      });
+      oldArcs.forEach(a => {
+        if (a.material) a.material.opacity = 0.7 * (1 - p);
+      });
+
+      if (p < 1) {
+        requestAnimationFrame(fadeOut);
+      } else {
+        clearGroup(markersGroup);
+        clearGroup(arcsGroup);
+        buildMarkersForMode(mode);
+        // Animate in: scale from 0 to 1
+        animateMarkersIn();
+        isTransitioning = false;
+      }
+    }
+    fadeOut();
+  }
+
+  function animateMarkersIn() {
+    const newMarkers = markersGroup.children.slice();
+    newMarkers.forEach((m, i) => {
+      m.scale.setScalar(0);
+      m.userData.targetScale = 1;
+      m.userData.delay = i * 40;  // Stagger entrance
+    });
+    const startT = performance.now();
+    const inDuration = 400;
+    function fadeIn() {
+      const elapsed = performance.now() - startT;
+      let allDone = true;
+      newMarkers.forEach(m => {
+        const t = Math.max(0, elapsed - (m.userData.delay || 0));
+        const p = Math.min(t / inDuration, 1);
+        // Easing: bounce-out
+        const eased = 1 - Math.pow(1 - p, 3);
+        m.scale.setScalar(eased);
+        if (p < 1) allDone = false;
+      });
+      if (!allDone) requestAnimationFrame(fadeIn);
+    }
+    fadeIn();
+  }
+
+  function buildMarkersForMode(mode) {
     const data = mode === 'projects' ? buildProjectsFromDOM() : buildVisitedFromList();
     const markerColor = mode === 'projects' ? PROJECT_MARKER_COLOR : VISITED_MARKER_COLOR;
     const markerColorHex = parseInt(markerColor.replace('#', '0x'));
 
-    // Group by lat/lng for stacking (e.g. 4 projects in Mauritania)
+    // Group by lat/lng for stacking
     const grouped = {};
     data.forEach(loc => {
       const key = `${loc.lat},${loc.lng}`;
@@ -457,17 +536,20 @@
     const uniqueLocs = Object.values(grouped);
 
     uniqueLocs.forEach(loc => {
-      const pos = latLngToVec3(loc.lat, loc.lng, RADIUS + 1.2);  // Above the continent layer
+      const pos = latLngToVec3(loc.lat, loc.lng, RADIUS + 1.2);
       const size = 1.6 + Math.min(loc.count - 1, 3) * 0.4;
 
-      // Inner dot
+      // Inner dot (clickable)
       const dotGeo = new THREE.SphereGeometry(size, 16, 16);
       const dotMat = new THREE.MeshBasicMaterial({ color: markerColorHex });
       const dot = new THREE.Mesh(dotGeo, dotMat);
       dot.position.set(pos.x, pos.y, pos.z);
+      dot.userData.countryData = loc;  // Store for raycaster
+      dot.userData.mode = mode;
       markersGroup.add(dot);
+      clickableMarkers.push(dot);
 
-      // Pulsing halo
+      // Pulsing halo (also clickable, larger hit area)
       const haloGeo = new THREE.SphereGeometry(size * 2.3, 16, 16);
       const haloMat = new THREE.MeshBasicMaterial({
         color: markerColorHex,
@@ -477,11 +559,14 @@
       const halo = new THREE.Mesh(haloGeo, haloMat);
       halo.position.copy(dot.position);
       halo.userData.phase = Math.random() * Math.PI * 2;
+      halo.userData.countryData = loc;
+      halo.userData.mode = mode;
       markersGroup.add(halo);
+      clickableMarkers.push(halo);
       dot.userData.halo = halo;
     });
 
-    // ============ Arcs (always from Mauritania as the home) ============
+    // Arcs from Mauritania (home) to each other
     const home = uniqueLocs.find(l => l.iso === 'MR');
     if (home) {
       uniqueLocs.forEach(loc => {
@@ -493,6 +578,7 @@
 
     updateLegend(mode);
     updateStats(mode, data);
+    hideCountryCard();  // Clear any previous selection
   }
 
   function makeArc(from, to, color) {
@@ -589,25 +675,46 @@
   // ============ INTERACTION ============
   function setupInteraction(dom) {
     dom.style.cursor = 'grab';
+    let dragMoved = false;
+    let pointerDownPos = null;
 
     function down(e) {
       isDragging = true;
+      dragMoved = false;
       dom.style.cursor = 'grabbing';
-      prevX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-      prevY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+      const cx = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+      const cy = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+      prevX = cx;
+      prevY = cy;
+      pointerDownPos = { x: cx, y: cy };
     }
     function move(e) {
       if (!isDragging) return;
       const cx = e.clientX || (e.touches && e.touches[0].clientX) || 0;
       const cy = e.clientY || (e.touches && e.touches[0].clientY) || 0;
       const dx = cx - prevX, dy = cy - prevY;
+      if (pointerDownPos) {
+        const totalDx = Math.abs(cx - pointerDownPos.x);
+        const totalDy = Math.abs(cy - pointerDownPos.y);
+        if (totalDx > 5 || totalDy > 5) dragMoved = true;
+      }
       rotVy = dx * 0.005;
       manualRotX = Math.max(-Math.PI/2.2, Math.min(Math.PI/2.2, manualRotX + dy * 0.005));
       prevX = cx; prevY = cy;
     }
-    function up() {
+    function up(e) {
       isDragging = false;
       dom.style.cursor = 'grab';
+
+      // If it wasn't a drag, treat as click → raycast
+      if (!dragMoved && pointerDownPos) {
+        const cx = (e.clientX !== undefined ? e.clientX :
+                   (e.changedTouches && e.changedTouches[0].clientX)) || pointerDownPos.x;
+        const cy = (e.clientY !== undefined ? e.clientY :
+                   (e.changedTouches && e.changedTouches[0].clientY)) || pointerDownPos.y;
+        handleClick(cx, cy, dom);
+      }
+      pointerDownPos = null;
     }
 
     dom.addEventListener('mousedown', down);
@@ -616,6 +723,120 @@
     dom.addEventListener('touchstart', down, { passive: true });
     window.addEventListener('touchmove', move, { passive: true });
     window.addEventListener('touchend', up);
+  }
+
+  // ============ CLICK / RAYCASTER ============
+  let raycaster, ndc;
+  function handleClick(clientX, clientY, dom) {
+    if (!raycaster) raycaster = new THREE.Raycaster();
+    if (!ndc) ndc = new THREE.Vector2();
+    const rect = dom.getBoundingClientRect();
+    ndc.x =  ((clientX - rect.left) / rect.width)  * 2 - 1;
+    ndc.y = -((clientY - rect.top)  / rect.height) * 2 + 1;
+    raycaster.setFromCamera(ndc, camera);
+    const hits = raycaster.intersectObjects(clickableMarkers, false);
+    if (hits.length > 0) {
+      const hit = hits[0].object;
+      const loc = hit.userData.countryData;
+      if (loc) {
+        showCountryCard(loc, hit.userData.mode);
+        rotateToCountry(loc);
+      }
+    } else {
+      // Clicked on empty area → hide the card
+      hideCountryCard();
+    }
+  }
+
+  // ============ ROTATE TO COUNTRY ============
+  let rotateTween = null;
+  function rotateToCountry(loc) {
+    // Compute the target rotation Y so this country faces the camera.
+    // Country is currently at world position relative to group rotation.
+    // We want sphere.rotation.y to be such that the country lands at lng ≈ 0 facing camera.
+    // After our latLngToVec3 mapping, target world rotation Y = -((lng+180)*PI/180) - PI/2 (empirical)
+    // Simpler: aim so the dot's world position has x≈0, z>0 (toward camera).
+    const targetRotY = -((loc.lng + 180) * Math.PI / 180) - Math.PI / 2;
+    const targetRotX = (loc.lat * Math.PI / 180) * 0.7;  // Slight tilt towards latitude
+
+    // Normalize current Y to nearest equivalent within ±PI of target
+    const groups = [sphere, bordersGroup, markersGroup, arcsGroup];
+    const currentY = sphere.rotation.y;
+    let delta = ((targetRotY - currentY + Math.PI) % (Math.PI * 2)) - Math.PI;
+    const finalY = currentY + delta;
+
+    if (rotateTween) cancelAnimationFrame(rotateTween);
+    const startT = performance.now();
+    const duration = 1100;
+    const startY = currentY;
+    const startX = manualRotX;
+
+    function tick() {
+      const elapsed = performance.now() - startT;
+      const p = Math.min(elapsed / duration, 1);
+      // Ease in-out cubic
+      const eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      const newY = startY + (finalY - startY) * eased;
+      const newX = startX + (targetRotX - startX) * eased;
+      groups.forEach(g => {
+        if (!g) return;
+        g.rotation.y = newY;
+      });
+      manualRotX = newX;
+      if (p < 1) {
+        rotateTween = requestAnimationFrame(tick);
+      } else {
+        rotateTween = null;
+      }
+    }
+    rotateTween = requestAnimationFrame(tick);
+  }
+
+  // ============ COUNTRY INFO CARD ============
+  function showCountryCard(loc, mode) {
+    const card = document.getElementById('country-card');
+    if (!card) return;
+    selectedCountry = loc;
+    const dict = (window.I18N && window.I18N[document.documentElement.lang || 'en']) || {};
+    const flag = loc.flag || '🌍';
+
+    let infoHTML;
+    if (mode === 'projects') {
+      const labelProjects = loc.count > 1
+        ? (dict['jrn.card.projects'] || 'projects')
+        : (dict['jrn.card.project'] || 'project');
+      infoHTML = `
+        <div class="cc-info">
+          <span class="cc-count">${loc.count}</span>
+          <span class="cc-label">${labelProjects}</span>
+        </div>
+      `;
+    } else {
+      // Visited mode: show year or "home"
+      const yearText = loc.year === 'home'
+        ? (dict['jrn.card.home'] || 'Home country')
+        : `${dict['jrn.card.visited'] || 'Visited'} ${loc.year}`;
+      infoHTML = `<div class="cc-info"><span class="cc-year">${yearText}</span></div>`;
+    }
+
+    card.innerHTML = `
+      <button type="button" class="cc-close" aria-label="Close">×</button>
+      <div class="cc-flag">${flag}</div>
+      <div class="cc-name">${loc.name}</div>
+      ${infoHTML}
+    `;
+    card.classList.add('visible');
+
+    // Wire close button
+    const closeBtn = card.querySelector('.cc-close');
+    if (closeBtn) closeBtn.addEventListener('click', hideCountryCard);
+  }
+
+  function hideCountryCard() {
+    const card = document.getElementById('country-card');
+    if (!card) return;
+    card.classList.remove('visible');
+    selectedCountry = null;
   }
 
   // ============ ANIMATION ============
