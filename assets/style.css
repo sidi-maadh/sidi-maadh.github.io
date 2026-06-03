@@ -2578,3 +2578,29 @@ body { padding-top: 100px; }
   padding: 7px 13px !important;
   font-size: 13px !important;
 }
+
+/* ============================================================
+   MOBILE REORDER: stats & languages BEFORE journey-text
+   On desktop: globe | text  on top, then stats | languages below.
+   On mobile: globe → stats → languages → text + CTA
+   ============================================================ */
+@media (max-width: 920px) {
+  .section-journey {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  /* Let journey-grid children bubble up to section level */
+  .section-journey > .journey-grid {
+    display: contents !important;
+  }
+  .section-journey .sec-header { order: 1; }
+  .section-journey .journey-globe-wrap { order: 2; }
+  .section-journey .journey-bottom {
+    order: 3 !important;
+    margin-top: 28px !important;
+  }
+  .section-journey .journey-text {
+    order: 4 !important;
+    margin-top: 32px !important;
+  }
+}
