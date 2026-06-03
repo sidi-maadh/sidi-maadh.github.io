@@ -2604,3 +2604,325 @@ body { padding-top: 100px; }
     margin-top: 32px !important;
   }
 }
+
+/* ============================================================
+   Floating country info card (shown when clicking a marker)
+   Floats above the journey-bottom row
+   ============================================================ */
+.journey-bottom {
+  position: relative;  /* anchor for the floating card */
+}
+.country-card {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translate(-50%, -100%) scale(0.92);
+  background: rgba(13, 16, 24, 0.96);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-radius: 18px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 240px;
+  box-shadow:
+    0 24px 50px -16px rgba(0, 0, 0, 0.7),
+    0 0 30px -8px color-mix(in srgb, var(--accent) 50%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition:
+    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-theme="light"] .country-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.country-card.visible {
+  opacity: 1;
+  transform: translate(-50%, -100%) scale(1);
+  pointer-events: auto;
+}
+.country-card .cc-flag {
+  font-size: 36px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.country-card .cc-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.country-card .cc-info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.country-card .cc-count {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+}
+.country-card .cc-label,
+.country-card .cc-year {
+  font-size: 13px;
+  color: var(--text-soft);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.country-card .cc-year {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.country-card .cc-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-mute);
+  font-size: 20px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  line-height: 1;
+  padding: 0;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+.country-card .cc-close:hover {
+  color: var(--text);
+  background: var(--bg-soft);
+}
+
+/* Small arrow pointer at bottom */
+.country-card::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: rgba(13, 16, 24, 0.96);
+  border-right: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+[data-theme="light"] .country-card::after {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+@media (max-width: 920px) {
+  .country-card {
+    top: -16px;
+    min-width: 200px;
+    padding: 14px 18px;
+  }
+  .country-card .cc-flag { font-size: 28px; }
+  .country-card .cc-name { font-size: 16px; }
+}
+
+/* Improve cursor feedback on globe canvas */
+#journey-globe canvas {
+  cursor: grab;
+}
+#journey-globe canvas:active {
+  cursor: grabbing;
+}
+
+/* ============================================================
+   AVATAR ANIMATIONS — rotating rings + mouse follow + hover glow
+   ============================================================ */
+.visual-card {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.avatar-wrap {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Rotating rings — slow continuous rotation in opposite directions */
+.visual-orbit-1 {
+  animation: orbitSpin 28s linear infinite;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+.visual-orbit-2 {
+  animation: orbitSpinReverse 40s linear infinite;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+@keyframes orbitSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes orbitSpinReverse {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* Floating dots — gentle independent movement */
+.visual-dot-1 { animation: dotFloat1 6s ease-in-out infinite; }
+.visual-dot-2 { animation: dotFloat2 8s ease-in-out infinite; }
+.visual-dot-3 { animation: dotFloat3 7s ease-in-out infinite; }
+@keyframes dotFloat1 {
+  0%,100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50%     { transform: translateY(-12px) scale(1.2); opacity: 1; }
+}
+@keyframes dotFloat2 {
+  0%,100% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50%     { transform: translateY(10px) scale(1.3); opacity: 0.95; }
+}
+@keyframes dotFloat3 {
+  0%,100% { transform: translateX(0) scale(1); opacity: 0.6; }
+  50%     { transform: translateX(8px) scale(1.15); opacity: 1; }
+}
+
+/* Hover effect on avatar — dynamic glow */
+.visual-card:hover .avatar-wrap {
+  transform: scale(1.05);
+}
+.visual-card:hover .visual-orbit-1 {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent) !important;
+  box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.visual-card:hover .visual-orbit-2 {
+  border-color: color-mix(in srgb, var(--accent-3) 60%, transparent) !important;
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent-3) 40%, transparent);
+}
+.visual-card:hover .visual-dot {
+  filter: brightness(1.4) drop-shadow(0 0 8px currentColor);
+}
+
+/* ============================================================
+   Learning Analytics — "Last update" date
+   ============================================================ */
+.edu-update {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-mute);
+  margin-top: 8px;
+  letter-spacing: 0.3px;
+}
+.edu-update strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+.edu-update-icon {
+  display: inline-block;
+  margin-right: 4px;
+  animation: spinSlow 5s linear infinite;
+  color: var(--accent-2);
+}
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   Certification platform logos
+   ============================================================ */
+.cert-plat-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.cert-plat-logo svg {
+  display: block;
+}
+.cert-plat-text {
+  vertical-align: middle;
+}
+.cert-plat {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ============================================================
+   Issuer logos in certifications (Stanford, IBM, Google, DeepLearning, etc.)
+   ============================================================ */
+.cert-issuer-logos {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.cert-issuer-logo {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.cert-issuer-logo svg {
+  display: block;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px;
+  box-sizing: content-box;
+}
+[data-theme="light"] .cert-issuer-logo svg {
+  background: rgba(0, 0, 0, 0.04);
+}
+.cert-issuer-text {
+  vertical-align: middle;
+  color: var(--text-soft);
+}
+.cert-issuer {
+  display: flex !important;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+}
+
+/* ============================================================
+   DISABLE avatar tilt/hover effects (keep only the orbit rotation)
+   ============================================================ */
+.visual-card:hover .avatar-wrap {
+  transform: none !important;
+}
+.avatar-wrap {
+  transition: none !important;
+}
+
+/* ============================================================
+   FINAL OVERRIDE: completely disable any hover effect on avatar
+   ============================================================ */
+.visual-card:hover .avatar-wrap,
+.visual-card:active .avatar-wrap,
+.visual-card:focus .avatar-wrap {
+  transform: none !important;
+  scale: 1 !important;
+}
+.visual-card:hover .visual-orbit-1,
+.visual-card:hover .visual-orbit-2 {
+  box-shadow: none !important;
+  /* keep original border color */
+}
+.visual-card:hover .visual-dot {
+  filter: none !important;
+}
+.avatar-wrap {
+  transform: none !important;
+  cursor: default !important;
+}
+.visual-card {
+  cursor: default !important;
+}
