@@ -478,7 +478,7 @@
     updateCounterTarget('qs-edu', displayedTotalHours);
 
     container.innerHTML = `
-      <h3 class="edu-bars-title"><span data-i18n="edu.hours">${dict['edu.hours'] || 'HOURS BY FIELD'}</span>${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE</span>' : ''}</h3>
+      <h3 class="edu-bars-title"><span data-i18n="edu.hours">${dict['edu.hours'] || 'HOURS BY FIELD'}</span>${dataSource === 'sheet' ? ' · <span style="color:var(--success)">LIVE (TOP 5)</span>' : ''}</h3>
       <div class="edu-bars">
         ${top5.map(([name, mins]) => {
           const pct = Math.max(8, Math.round(mins / maxMin * 100));
