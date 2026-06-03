@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidi Chrif Ahmed Maadh — AI / ML Engineer</title>
+  <meta name="description" content="Portfolio of Sidi Chrif Ahmed Maadh — AI / ML Engineer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <!-- NAV (5 items only) -->
+  <header class="nav">
+    <a href="#about" class="brand">
+      <span class="brand-scam">
+        <span class="bs-s">S</span><span class="bs-c">C</span><span class="bs-a">A</span><span class="bs-m">M</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" class="nav-link" data-i18n="nav.about">About</a>
+      <a href="#tech" class="nav-link" data-i18n="nav.tech">Tech Stack</a>
+      <a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a>
+      <a href="#certifications" class="nav-link" data-i18n="nav.certs">Certifications</a>
+          <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="lang-toggle" aria-label="Toggle language"><span id="lang-label">FR</span></button>
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ABOUT (Home + About merged, left-aligned) -->
+    <section id="about" class="section section-hero-about">
+      <div class="hero-about">
+        <div class="ha-left">
+          <div class="status-pill"><span class="status-dot"></span><span data-i18n="home.status">Available for AI / ML roles</span></div>
+          <h1 class="hero-title">
+            <span class="hero-greet" data-i18n="home.greeting">Hello, I'm</span>
+            <span class="hero-name">Sidi Chrif<br>Ahmed Maadh.</span>
+          </h1>
+          <p class="hero-role">
+            <span class="accent" data-i18n="home.role.a">AI / Machine Learning Engineer</span>
+            <span class="sep">·</span>
+            <span data-i18n="home.role.b">Master's in AI</span>
+          </p>
+          <p class="hero-tag" data-i18n="about.lede">I'm an AI/ML Engineer passionate about developing intelligent systems and data-driven solutions. My expertise includes machine learning, deep learning, data preprocessing, model training, and evaluation. I enjoy leveraging artificial intelligence to solve complex problems and create innovative applications that deliver meaningful impact.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">
+              <span data-i18n="home.cta.a">Contact Me</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://drive.google.com/file/d/1w5D3iPeZThQWXO-vnhodsMFtNqpmB9u5/view" target="_blank" rel="noopener" class="btn btn-ghost">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <span data-i18n="home.cta.b">Resume</span>
+            </a>
+          </div>
+        </div>
+        <div class="ha-right">
+          <div class="visual-card">
+            <div class="avatar-wrap">
+              <img src="assets/avatar.svg" alt="Sidi Chrif Ahmed Maadh — Developer Avatar" class="avatar-img" />
+            </div>
+            <div class="visual-orbit visual-orbit-1"></div>
+            <div class="visual-orbit visual-orbit-2"></div>
+            <div class="visual-dot visual-dot-1"></div>
+            <div class="visual-dot visual-dot-2"></div>
+            <div class="visual-dot visual-dot-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistics (8 cards: 4 live + 4 animated counters) -->
+      <div class="quick-stats">
+        <div class="qs-card">
+          <div class="qs-icon" style="color:#fbbf24"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <div class="qs-num counter" id="qs-years" data-target="2" data-suffix="+">0+</div>
+          <div class="qs-label" data-i18n="qs.years">Years of experience</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-icon" style="color:#06b6d4"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><polyline points="12 22 12 12 2 8.5"/><polyline points="12 12 22 8.5"/></svg></div>
+          <div class="qs-num counter" id="qs-projects" data-target="0" data-suffix="+">0+</div>
+          <div class="qs-label" data-i18n="qs.projects">Projects completed</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-icon" style="color:#a78bfa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="qs-num counter" id="qs-techs" data-target="0" data-suffix="+">0+</div>
+          <div class="qs-label" data-i18n="qs.techs">Technologies mastered</div>
+        </div>
+        <a href="https://github.com/sidi-maadh" target="_blank" rel="noopener" class="qs-card">
+          <div class="qs-icon" style="color:#f472b6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg></div>
+          <div class="qs-num counter" id="qs-commits" data-target="500" data-suffix="+">0+</div>
+          <div class="qs-label" data-i18n="qs.commits">Code commits</div>
+        </a>
+        <a href="https://codeforces.com/profile/sidi_maadh" target="_blank" rel="noopener" class="qs-card">
+          <div class="qs-icon" style="color:#1F8ACB"><svg width="22" height="22" viewBox="0 0 56 56"><rect x="6" y="22" width="10" height="26" rx="3" fill="#f44336"/><rect x="22" y="10" width="10" height="38" rx="3" fill="#ffc107"/><rect x="38" y="30" width="10" height="18" rx="3" fill="#2196f3"/></svg></div>
+          <div class="qs-num counter" id="qs-cf" data-target="0" data-suffix="+">0+</div>
+          <div class="qs-label">Codeforces</div>
+        </a>
+        <a href="https://leetcode.com/u/sidi_maadh/" target="_blank" rel="noopener" class="qs-card">
+          <div class="qs-icon" style="color:#FFA116"><svg width="22" height="22" viewBox="0 0 56 56"><path d="M30 6L12 24a6 6 0 000 8l18 18 5-5-16-15a1.4 1.4 0 010-2l16-15z" fill="#ffa116"/><rect x="20" y="28" width="22" height="5" rx="2.5" fill="#b3b3b3"/></svg></div>
+          <div class="qs-num counter" id="qs-lc" data-target="0" data-suffix="+">0+</div>
+          <div class="qs-label">LeetCode</div>
+        </a>
+        <div class="qs-card">
+          <div class="qs-icon" style="color:var(--accent)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+          <div class="qs-num counter" id="qs-edu" data-target="0" data-suffix="h+">0h+</div>
+          <div class="qs-label" data-i18n="qs.edu">Hours studied</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-icon" style="color:var(--success)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="10" r="7"/><path d="M9 14l-2 9 5-3 5 3-2-9"/><path d="M10 10l2 2 4-4"/></svg></div>
+          <div class="qs-num counter" id="qs-cert" data-target="0" data-suffix="+">0+</div>
+          <div class="qs-label" data-i18n="qs.cert">Certifications</div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE & EDUCATION (purple theme) -->
+      <div class="sub-section">
+        <div class="sec-header centered">
+          <span class="eyebrow" data-i18n="exp.eye">// my journey</span>
+          <h2 class="sec-title" data-i18n="exp.title">Experience &amp; Education</h2>
+          <p class="sec-sub" data-i18n="exp.sub">Discover my professional journey and educational background that shaped my expertise in technology and development.</p>
+        </div>
+      <div class="seg-toggle" role="tablist">
+          <button class="seg-btn active" data-tab="experience" role="tab" aria-selected="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            <span data-i18n="exp.tab.exp">Experience</span>
+          </button>
+          <button class="seg-btn" data-tab="education" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 4 3 6 3s6-2 6-3v-5"/></svg>
+            <span data-i18n="exp.tab.edu">Education</span>
+          </button>
+        </div>
+
+        <div class="timeline" id="tl-experience">
+          <div class="tl-line"></div>
+          <div class="tl-item tl-left" data-reveal>
+            <div class="tl-node"></div>
+            <article class="tl-card">
+              <div class="tl-card-head">
+                <div class="tl-logo" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)"><img src="assets/logos/smart-ms.svg" alt="SM" onerror="this.style.display='none'" /><span class="tl-logo-text">SM</span></div>
+                <div><h3 data-i18n="exp.e1.title">End-of-Study Internship</h3><p class="tl-company">SMART MS SA</p></div>
+              </div>
+              <span class="tl-badge" data-i18n="tl.b1">Mar 2025 – May 2025 · 3 months</span>
+              <p class="tl-desc" data-i18n="exp.e1.desc">Built and integrated machine learning components into the company's flagship product. Worked across the stack, from data pipelines to model deployment in production.</p>
+              <div class="tl-tags"><span>Python</span><span>FastAPI</span><span>PyTorch</span><span>Docker</span><span>PostgreSQL</span></div>
+            </article>
+          </div>
+          <div class="tl-item tl-right" data-reveal>
+            <div class="tl-node"></div>
+            <article class="tl-card">
+              <div class="tl-card-head">
+                <div class="tl-logo" style="background:linear-gradient(135deg,#6366f1,#a78bfa)"><img src="assets/logos/bcm.svg" alt="BC" onerror="this.style.display='none'" /><span class="tl-logo-text">BC</span></div>
+                <div><h3 data-i18n="exp.e2.title">Discovery Internship</h3><p class="tl-company">Banque Centrale de Mauritanie</p></div>
+              </div>
+              <span class="tl-badge" data-i18n="tl.b2">Jan 2025 · 1 month</span>
+              <p class="tl-desc" data-i18n="exp.e2.desc">Discovered the IT infrastructure of the central bank. Observed real-world enterprise systems, security practices, and the operational side of large-scale software.</p>
+              <div class="tl-tags"><span>Enterprise IT</span><span>Security</span><span>Banking Systems</span></div>
+            </article>
+          </div>
+          <div class="tl-item tl-left" data-reveal>
+            <div class="tl-node"></div>
+            <article class="tl-card">
+              <div class="tl-card-head">
+                <div class="tl-logo" style="background:linear-gradient(135deg,#a78bfa,#c084fc)"><img src="assets/logos/somelec.svg" alt="SO" onerror="this.style.display='none'" /><span class="tl-logo-text">SO</span></div>
+                <div><h3 data-i18n="exp.e3.title">Internship</h3><p class="tl-company">SOMELEC</p></div>
+              </div>
+              <span class="tl-badge" data-i18n="tl.b3">Jul 2023 – Aug 2023 · 2 months</span>
+              <p class="tl-desc" data-i18n="exp.e3.desc">First professional experience at Mauritania's national electricity company. Contributed to internal IT projects and learned the fundamentals of enterprise software development.</p>
+              <div class="tl-tags"><span>Java</span><span>SQL</span><span>Internal Tools</span></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="timeline" id="tl-education" hidden>
+          <div class="tl-line"></div>
+          <div class="tl-item tl-left" data-reveal>
+            <div class="tl-node"></div>
+            <article class="tl-card">
+              <div class="tl-card-head"><div class="tl-logo" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)"><img src="assets/logos/uc.svg" alt="UC" onerror="this.style.display='none'" /><span class="tl-logo-text">UC</span></div><div><h3 data-i18n="edu.e1.title">Master's, Artificial Intelligence</h3><p class="tl-company">Université Centrale, Tunisia</p></div></div>
+              <span class="tl-badge" data-i18n="tl.b4">Oct 2025 – Jul 2027</span>
+              <p class="tl-desc" data-i18n="edu.e1.desc">Specialized program in Artificial Intelligence covering deep learning, NLP, computer vision, and applied ML research.</p>
+              <div class="tl-tags"><span>Deep Learning</span><span>NLP</span><span>Computer Vision</span><span>Research</span></div>
+            </article>
+          </div>
+          <div class="tl-item tl-right" data-reveal>
+            <div class="tl-node"></div>
+            <article class="tl-card">
+              <div class="tl-card-head"><div class="tl-logo" style="background:linear-gradient(135deg,#6366f1,#a78bfa)"><img src="assets/logos/una.svg" alt="UN" onerror="this.style.display='none'" /><span class="tl-logo-text">UN</span></div><div><h3 data-i18n="edu.e2.title">Master's, Management &amp; Entrepreneurship</h3><p class="tl-company">Université de Nouakchott Al Aasriya</p></div></div>
+              <span class="tl-badge" data-i18n="tl.b5">Oct 2024 – Jul 2026</span>
+              <p class="tl-desc" data-i18n="edu.e2.desc">Parallel program in business management and entrepreneurship — bridging technical engineering skills with product strategy.</p>
+              <div class="tl-tags"><span>Management</span><span>Entrepreneurship</span><span>Strategy</span></div>
+            </article>
+          </div>
+          <div class="tl-item tl-left" data-reveal>
+            <div class="tl-node"></div>
+            <article class="tl-card">
+              <div class="tl-card-head"><div class="tl-logo" style="background:linear-gradient(135deg,#a78bfa,#c084fc)"><img src="assets/logos/liu.svg" alt="LI" onerror="this.style.display='none'" /><span class="tl-logo-text">LI</span></div><div><h3 data-i18n="edu.e3.title">Bachelor's, Computer Science Applied in Business</h3><p class="tl-company">Lebanese International University</p></div></div>
+              <span class="tl-badge" data-i18n="tl.b6">Oct 2022 – Jul 2025</span>
+              <p class="tl-desc" data-i18n="edu.e3.desc">Full software engineering curriculum with a focus on business applications.</p>
+              <div class="tl-tags"><span>Algorithms</span><span>Databases</span><span>Software Engineering</span></div>
+            </article>
+          </div>
+          <div class="tl-item tl-right" data-reveal>
+            <div class="tl-node"></div>
+            <article class="tl-card">
+              <div class="tl-card-head"><div class="tl-logo" style="background:linear-gradient(135deg,#c084fc,#e879f9)"><img src="assets/logos/una.svg" alt="UN" onerror="this.style.display='none'" /><span class="tl-logo-text">UN</span></div><div><h3 data-i18n="edu.e4.title">Professional Bachelor's, Accounting &amp; Finance</h3><p class="tl-company">Université de Nouakchott Al Aasriya</p></div></div>
+              <span class="tl-badge" data-i18n="tl.b7">Oct 2021 – Jul 2024</span>
+              <p class="tl-desc" data-i18n="edu.e4.desc">Foundational training in accounting, finance, and quantitative analysis.</p>
+              <div class="tl-tags"><span>Accounting</span><span>Finance</span><span>Quantitative Analysis</span></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section id="tech" class="section">
+      <div class="sec-header centered">
+        <span class="eyebrow" data-i18n="tech.eye">// tools I work with</span>
+        <h2 class="sec-title" data-i18n="tech.title">Tech Stack</h2>
+        <p class="sec-sub" data-i18n="tech.sub">Technologies I use to design, build, and ship — from ML models to production systems.</p>
+      </div>
+      <div class="tech-groups">
+        <div class="tech-group tech-group-left">
+          <h3 class="tech-cat" style="color:var(--accent)">AI / ML</h3>
+          <div class="tech-chips">
+            <span class="chip" data-tech="PyTorch">PyTorch</span><span class="chip" data-tech="TensorFlow">TensorFlow</span><span class="chip" data-tech="scikit-learn">scikit-learn</span><span class="chip" data-tech="Hugging Face">Hugging Face</span><span class="chip" data-tech="LangChain">LangChain</span><span class="chip" data-tech="OpenCV">OpenCV</span><span class="chip" data-tech="Pandas">Pandas</span><span class="chip" data-tech="NumPy">NumPy</span>
+          </div>
+        </div>
+        <div class="tech-group tech-group-left">
+          <h3 class="tech-cat" style="color:var(--accent-3)">Languages</h3>
+          <div class="tech-chips">
+            <span class="chip" data-tech="Python">Python</span><span class="chip" data-tech="C++">C++</span><span class="chip" data-tech="Java">Java</span><span class="chip" data-tech="JavaScript">JavaScript</span><span class="chip" data-tech="TypeScript">TypeScript</span><span class="chip" data-tech="Dart">Dart</span>
+          </div>
+        </div>
+        <div class="tech-group tech-group-left">
+          <h3 class="tech-cat" style="color:var(--success)">Full-Stack · Mobile</h3>
+          <div class="tech-chips">
+            <span class="chip" data-tech="React">React</span><span class="chip" data-tech="Spring Boot">Spring Boot</span><span class="chip" data-tech="Django">Django</span><span class="chip" data-tech="Flutter">Flutter</span><span class="chip" data-tech="Tailwind">Tailwind</span>
+          </div>
+        </div>
+        <div class="tech-group tech-group-left">
+          <h3 class="tech-cat" style="color:var(--warning)">Data · DevOps · Cloud</h3>
+          <div class="tech-chips">
+            <span class="chip" data-tech="PostgreSQL">PostgreSQL</span><span class="chip" data-tech="MySQL">MySQL</span><span class="chip" data-tech="Firebase">Firebase</span><span class="chip" data-tech="Docker">Docker</span><span class="chip" data-tech="Git">Git</span><span class="chip" data-tech="AWS">AWS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="sec-header centered">
+        <span class="eyebrow" data-i18n="proj.eye">// what I build</span>
+        <h2 class="sec-title" data-i18n="proj.title">Featured Projects</h2>
+        <p class="sec-sub" data-i18n="proj.sub">Explore my latest work and creative solutions. Each project represents a unique challenge and innovative approach to problem-solving.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj-card" data-country="MR">
+          <div class="proj-img" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6)"><span class="proj-img-title" data-i18n="proj.img.rag">RAG Chatbot</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.rag">RAG Chatbot with LangChain</h3>
+            <p data-i18n="proj.rag">Retrieval-augmented chatbot built with LangChain, vector search, and a fine-tuned LLM backbone.</p>
+            <div class="proj-tags"><span>LangChain</span><span>Python</span><span>FastAPI</span><span>Vector DB</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+        <article class="proj-card" data-country="MR">
+          <div class="proj-img" style="background:linear-gradient(135deg,#f97316,#fbbf24)"><span class="proj-img-title" data-i18n="proj.img.ml">ML Templates</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.ml">ML / DL Templates</h3>
+            <p data-i18n="proj.ml">Reusable templates for classification, CNNs, and transformers.</p>
+            <div class="proj-tags"><span>PyTorch</span><span>TensorFlow</span><span>scikit-learn</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+        <article class="proj-card" data-country="MR">
+          <div class="proj-img" style="background:linear-gradient(135deg,#06b6d4,#34d399)"><span class="proj-img-title" data-i18n="proj.img.mobile">Mobile Apps</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.mobile">Flutter Mobile Apps</h3>
+            <p data-i18n="proj.mobile">Cross-platform Flutter applications with Firebase backend.</p>
+            <div class="proj-tags"><span>Flutter</span><span>Firebase</span><span>Dart</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+        <article class="proj-card" data-country="MR">
+          <div class="proj-img" style="background:linear-gradient(135deg,#61dafb,#6db33f)"><span class="proj-img-title" data-i18n="proj.img.web">Web Dashboard</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.web">Full-Stack Web Dashboards</h3>
+            <p data-i18n="proj.web">Modern React dashboards with Spring Boot backends.</p>
+            <div class="proj-tags"><span>React</span><span>Spring Boot</span><span>TypeScript</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+        <article class="proj-card extra-project" data-country="TN" hidden>
+          <div class="proj-img" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"><span class="proj-img-title" data-i18n="proj.img.nlp">NLP Pipeline</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.nlp">NLP Text Classifier</h3>
+            <p data-i18n="proj.nlp">End-to-end text classification system using transformers (BERT). Includes data preprocessing, training, and a serving API.</p>
+            <div class="proj-tags"><span>Python</span><span>BERT</span><span>Transformers</span><span>FastAPI</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+        <article class="proj-card extra-project" data-country="AE" hidden>
+          <div class="proj-img" style="background:linear-gradient(135deg,#10b981,#3b82f6)"><span class="proj-img-title" data-i18n="proj.img.cv">Computer Vision</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.cv">Image Classification Model</h3>
+            <p data-i18n="proj.cv">CNN-based image classifier with transfer learning. Trained on custom datasets with augmentation and fine-tuning.</p>
+            <div class="proj-tags"><span>PyTorch</span><span>CNN</span><span>OpenCV</span><span>Transfer Learning</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+        <article class="proj-card extra-project" data-country="FR" hidden>
+          <div class="proj-img" style="background:linear-gradient(135deg,#7c3aed,#ec4899)"><span class="proj-img-title" data-i18n="proj.img.data">Data Analysis</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.data">Data Analysis Dashboards</h3>
+            <p data-i18n="proj.data">Interactive analytics dashboards built with Pandas, Plotly, and Streamlit. From raw data to actionable insights.</p>
+            <div class="proj-tags"><span>Python</span><span>Pandas</span><span>Plotly</span><span>Streamlit</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+        <article class="proj-card extra-project" data-country="CA" hidden>
+          <div class="proj-img" style="background:linear-gradient(135deg,#06b6d4,#8b5cf6)"><span class="proj-img-title" data-i18n="proj.img.scrape">Web Scraping</span></div>
+          <div class="proj-body">
+            <h3 data-i18n="proj.h3.scrape">Web Scraping & ETL</h3>
+            <p data-i18n="proj.scrape">Automated data extraction pipelines with Python, BeautifulSoup, and Scrapy. Scheduled jobs feeding into a PostgreSQL warehouse.</p>
+            <div class="proj-tags"><span>Python</span><span>BeautifulSoup</span><span>Scrapy</span><span>PostgreSQL</span></div>
+            <div class="proj-links"><a href="https://github.com/sidi-maadh" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>GitHub</a></div>
+          </div>
+        </article>
+      </div>
+      <div class="more-link">
+        <button id="loadMoreProjects" class="btn btn-ghost" type="button">
+          <span data-i18n="proj.more">Load More</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS + SELF EDUCATION (combined) -->
+    <section id="certifications" class="section">
+      <div class="sec-header centered">
+        <span class="eyebrow" data-i18n="cert.eye">// continuous learning</span>
+        <h2 class="sec-title" data-i18n="cert.title">Certifications</h2>
+        <p class="sec-sub" data-i18n="cert.sub">A growing collection of certifications and specializations — proof of continuous learning across AI, ML, and software engineering.</p>
+        <div class="cert-counters">
+          <span class="cnt"><span class="cdot done"></span> <strong id="c-done">·</strong> <span data-i18n="cert.done">done</span></span>
+          <span class="cnt"><span class="cdot active"></span> <strong id="c-active">·</strong> <span data-i18n="cert.active">active</span></span>
+          <span class="cnt"><span class="cdot planned"></span> <strong id="c-planned">·</strong> <span data-i18n="cert.planned">planned</span></span>
+        </div>
+      </div>
+      <div id="cert-content" class="cert-loading">Loading certifications…</div>
+
+      <!-- Inline Self Education block -->
+      <div class="sub-section edu-block">
+        <div class="sec-header centered">
+          <span class="eyebrow" data-i18n="edu.eye">// daily practice</span>
+          <h3 class="sec-title-small" data-i18n="edu.title">Self Education</h3>
+          <p class="sec-sub" data-i18n="edu.sub">Areas I'm actively learning — tracked daily.</p>
+        </div>
+      <div id="edu-content" class="edu-loading">Loading self-education data…</div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+<!-- ============ GLOBAL PRESENCE (3D Globe) ============ -->
+    <section id="journey" class="section section-journey">
+      <div class="sec-header centered">
+        <span class="eyebrow" data-i18n="jrn.eye">// my reach</span>
+        <h2 class="sec-title" data-i18n="jrn.title">Global Presence</h2>
+        <p class="sec-sub" data-i18n="jrn.sub">From Mauritania to the world — open to opportunities globally, ready to collaborate remotely.</p>
+      </div>
+
+      <div class="journey-grid">
+        <!-- Globe block (with toggle) -->
+        <div class="journey-globe-wrap">
+          <!-- Toggle: Projects | Visited Countries -->
+          <div class="globe-toggle" role="tablist">
+            <button type="button" class="globe-tab active" data-mode="projects" data-i18n="jrn.tab.projects">Projects</button>
+            <button type="button" class="globe-tab" data-mode="visited" data-i18n="jrn.tab.visited">Visited Countries</button>
+          </div>
+
+          <div id="journey-globe"></div>
+
+          <div class="journey-legend" id="journey-legend">
+            <span class="legend-item"><span class="legend-dot" style="background:#fbbf24"></span><span data-i18n="jrn.l.project">Project location</span></span>
+          </div>
+        </div>
+
+        <!-- Right side: text intro + CTA -->
+        <div class="journey-text">
+          <h3 data-i18n="jrn.h3">Projects across the globe, places I've been</h3>
+          <p data-i18n="jrn.intro">From <strong>Mauritania</strong> 🇲🇷 my home base, I've built projects spanning multiple continents and visited several countries. I'm now open to bringing my skills to teams across the world — remote or relocation.</p>
+          <a href="#contact" class="btn btn-primary journey-cta">
+            <span data-i18n="jrn.cta">Let's collaborate</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom row: Stats card + Languages card (same level) -->
+      <div class="journey-bottom">
+        <!-- Dynamic stats card -->
+        <div class="globe-stats" id="globe-stats">
+          <!-- Filled by JS -->
+        </div>
+
+        <!-- Languages card (same visual treatment as stats) -->
+        <div class="journey-langs-card">
+          <div class="journey-langs-label" data-i18n="jrn.lang.title">Languages I speak</div>
+          <div class="journey-langs-list">
+            <div class="lang-pill">
+              <span class="lang-pill-name" data-i18n="jrn.lang.ar">Arabic</span>
+              <span class="lang-pill-dot"></span>
+              <span class="lang-pill-level" data-i18n="jrn.lang.ar.lvl">Native</span>
+            </div>
+            <div class="lang-pill">
+              <span class="lang-pill-name" data-i18n="jrn.lang.fr">French</span>
+              <span class="lang-pill-dot"></span>
+              <span class="lang-pill-level" data-i18n="jrn.lang.fr.lvl">Fluent</span>
+            </div>
+            <div class="lang-pill">
+              <span class="lang-pill-name" data-i18n="jrn.lang.en">English</span>
+              <span class="lang-pill-dot"></span>
+              <span class="lang-pill-level" data-i18n="jrn.lang.en.lvl">Professional</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <section id="contact" class="section section-contact">
+      <div class="sec-header centered">
+        <span class="eyebrow" data-i18n="ctc.eye">// let's connect</span>
+        <h2 class="contact-title" data-i18n="ctc.title">Get in Touch</h2>
+        <p class="sec-sub" data-i18n="ctc.sub">Have a project in mind or just want to chat? I'd love to hear from you. Let's discuss how we can bring your ideas to life.</p>
+      </div>
+      <div class="contact-cards">
+        <a href="https://github.com/sidi-maadh" target="_blank" rel="noopener" class="contact-card-v2" data-reveal>
+          <div class="cc-icon" style="background:linear-gradient(135deg,#0a0c10,#222831)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+          </div>
+          <div class="cc-text-block"><h3>GitHub</h3><p data-i18n="ctc.gh">View my code</p></div>
+        </a>
+        <a href="https://www.linkedin.com/in/sidichrifahmedmaadh/" target="_blank" rel="noopener" class="contact-card-v2" data-reveal>
+          <div class="cc-icon" style="background:linear-gradient(135deg,#0A66C2,#0e76e0)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+          </div>
+          <div class="cc-text-block"><h3>LinkedIn</h3><p data-i18n="ctc.li">Professional profile</p></div>
+        </a>
+        <a href="https://wa.me/22232929293" target="_blank" rel="noopener" class="contact-card-v2" data-reveal>
+          <div class="cc-icon" style="background:linear-gradient(135deg,#25D366,#128C7E)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.4 15.4L2 22l4.7-1.5A10 10 0 1012 2zm5.4 14.2c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.5-2.6-1.1-4.4-3.7-4.5-3.9-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.7.7 1.8.1.1.1.3 0 .4l-.3.4-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1.9 2 1.2 2.3 1.4.3.1.5.1.7-.1l.8-1c.2-.3.4-.2.6-.1l1.8.8c.3.1.4.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+          </div>
+          <div class="cc-text-block"><h3>WhatsApp</h3><p data-i18n="ctc.wa">Quick chat</p></div>
+        </a>
+        <a href="mailto:sidichrifahdmaadh@gmail.com" class="contact-card-v2" data-reveal>
+          <div class="cc-icon" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/></svg>
+          </div>
+          <div class="cc-text-block"><h3>Email</h3><p data-i18n="ctc.em">Write to me</p></div>
+        </a>
+      </div>
+
+      <!-- Contact form -->
+      <form id="contactForm" class="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="cf-name" data-i18n="form.name">Name</label>
+            <input type="text" id="cf-name" name="from_name" placeholder="Sidi Maadh" data-i18n-ph="form.name.ph" required>
+            <span class="form-error" data-for="cf-name"></span>
+          </div>
+          <div class="form-field">
+            <label for="cf-email" data-i18n="form.email">Email</label>
+            <input type="email" id="cf-email" name="from_email" placeholder="you@example.com" data-i18n-ph="form.email.ph" required>
+            <span class="form-error" data-for="cf-email"></span>
+          </div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field">
+            <label for="cf-subject" data-i18n="form.subject">Subject</label>
+            <input type="text" id="cf-subject" name="subject" placeholder="I'd like to discuss a project opportunity…" data-i18n-ph="form.subject.ph" required>
+            <span class="form-error" data-for="cf-subject"></span>
+          </div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field">
+            <label for="cf-msg" data-i18n="form.msg">Message</label>
+            <textarea id="cf-msg" name="message" rows="6" placeholder="Hi Sidi, I have an exciting project in mind that I'd love to discuss with you…" data-i18n-ph="form.msg.ph" required></textarea>
+            <span class="form-error" data-for="cf-msg"></span>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit" id="cfSubmit">
+          <span class="btn-submit-text" data-i18n="form.send">Send Message</span>
+          <svg class="btn-submit-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <svg class="btn-submit-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 11-6.219-8.56" /></svg>
+        </button>
+        <div class="form-status" id="cfStatus"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <svg viewBox="0 0 64 64" width="28" height="28" fill="none">
+            <defs>
+              <linearGradient id="fA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+            </defs>
+            <g font-family="Sora" font-weight="800" font-size="22" letter-spacing="-1" fill="url(#fA)">
+              <text x="20" y="29" text-anchor="middle">S</text>
+              <text x="44" y="29" text-anchor="middle">C</text>
+              <text x="20" y="56" text-anchor="middle">A</text>
+              <text x="44" y="56" text-anchor="middle">M</text>
+            </g>
+          </svg>
+          <div class="footer-brand-text">
+            <span class="footer-brand-name">Sidi Chrif Ahmed Maadh</span>
+            <span class="footer-brand-role" data-i18n="footer.role">AI / Machine Learning Engineer</span>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/sidi-maadh" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sidichrifahmedmaadh/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="mailto:sidichrifahdmaadh@gmail.com">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/></svg>
+            <span>Email</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2026 Sidi Chrif Ahmed Maadh. <span data-i18n="footer.rights">All rights reserved.</span></span>
+        <span class="footer-built" data-i18n="footer.built">Built with passion and care <span class="heart">❤️</span></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/i18n.js"></script>
+  <script src="assets/tech-logos.js"></script>
+  <script src="assets/app.js"></script>
+  <script src="assets/globe.js"></script>
+</body>
+</html>
