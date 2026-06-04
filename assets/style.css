@@ -933,9 +933,6 @@ body { padding-top: 100px; }
   height: 280px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow:
-    0 20px 60px -15px rgba(139, 92, 246, 0.4),
-    0 0 0 2px rgba(139, 92, 246, 0.2);
   background: var(--bg);
 }
 .avatar-img {
@@ -2747,182 +2744,270 @@ body { padding-top: 100px; }
 }
 
 /* ============================================================
-   AVATAR ANIMATIONS — rotating rings + mouse follow + hover glow
+
+/* ============================================================
+   AVATAR — ORIGINAL VERSION
+   3 orbits rotating + 3 dots orbiting around + gentle avatar float
    ============================================================ */
-.visual-card {
-  perspective: 1200px;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
+
+/* Avatar wrap: gentle float, NO box-shadow */
 .avatar-wrap {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
+  position: relative;
+  z-index: 3;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg);
+  box-shadow: none;
+  animation: avatarFloat 4s ease-in-out infinite;
+}
+@keyframes avatarFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
-/* Rotating rings — slow continuous rotation in opposite directions */
+/* Visual card layout */
+.visual-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+/* Three orbital rings — rotate continuously around the avatar center */
+.visual-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  pointer-events: none;
+}
 .visual-orbit-1 {
-  animation: orbitSpin 28s linear infinite;
-  transition: border-color 0.4s, box-shadow 0.4s;
+  width: 320px;
+  height: 320px;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  animation: spin 20s linear infinite;
+  transform-origin: 0 0;
 }
 .visual-orbit-2 {
-  animation: orbitSpinReverse 40s linear infinite;
-  transition: border-color 0.4s, box-shadow 0.4s;
+  width: 380px;
+  height: 380px;
+  border: 1px solid color-mix(in srgb, var(--accent-3) 18%, transparent);
+  animation: spin 30s linear infinite reverse;
+  transform-origin: 0 0;
 }
-@keyframes orbitSpin {
+.visual-orbit-3 {
+  width: 440px;
+  height: 440px;
+  border: 1px solid color-mix(in srgb, var(--success) 15%, transparent);
+  animation: spin 40s linear infinite;
+  transform-origin: 0 0;
+}
+@keyframes spin {
   from { transform: translate(-50%, -50%) rotate(0deg); }
   to   { transform: translate(-50%, -50%) rotate(360deg); }
 }
-@keyframes orbitSpinReverse {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+
+/* Three dots that ORBIT around the avatar — the iconic effect */
+.visual-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform-origin: 0 0;
+}
+.visual-dot-1 {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 16px currentColor;
+  animation: orbit1 20s linear infinite;
+}
+.visual-dot-2 {
+  width: 10px;
+  height: 10px;
+  background: var(--accent-3);
+  color: var(--accent-3);
+  box-shadow: 0 0 16px currentColor;
+  animation: orbit2 30s linear infinite;
+}
+.visual-dot-3 {
+  width: 10px;
+  height: 10px;
+  background: var(--success);
+  color: var(--success);
+  box-shadow: 0 0 16px currentColor;
+  animation: orbit3 40s linear infinite;
 }
 
-/* Floating dots — gentle independent movement */
-.visual-dot-1 { animation: dotFloat1 6s ease-in-out infinite; }
-.visual-dot-2 { animation: dotFloat2 8s ease-in-out infinite; }
-.visual-dot-3 { animation: dotFloat3 7s ease-in-out infinite; }
-@keyframes dotFloat1 {
-  0%,100% { transform: translateY(0) scale(1); opacity: 0.6; }
-  50%     { transform: translateY(-12px) scale(1.2); opacity: 1; }
+/* Orbit keyframes — each dot circles around the avatar at a different radius */
+@keyframes orbit1 {
+  from { transform: translate(-50%, -50%) rotate(0deg)   translateX(160px) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg) translateX(160px) rotate(-360deg); }
 }
-@keyframes dotFloat2 {
-  0%,100% { transform: translateY(0) scale(1); opacity: 0.5; }
-  50%     { transform: translateY(10px) scale(1.3); opacity: 0.95; }
+@keyframes orbit2 {
+  from { transform: translate(-50%, -50%) rotate(0deg)   translateX(190px) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg) translateX(190px) rotate(-360deg); }
 }
-@keyframes dotFloat3 {
-  0%,100% { transform: translateX(0) scale(1); opacity: 0.6; }
-  50%     { transform: translateX(8px) scale(1.15); opacity: 1; }
+@keyframes orbit3 {
+  from { transform: translate(-50%, -50%) rotate(0deg)   translateX(220px) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg) translateX(220px) rotate(-360deg); }
 }
 
-/* Hover effect on avatar — dynamic glow */
-.visual-card:hover .avatar-wrap {
-  transform: scale(1.05);
-}
-.visual-card:hover .visual-orbit-1 {
-  border-color: color-mix(in srgb, var(--accent) 60%, transparent) !important;
-  box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 40%, transparent);
-}
-.visual-card:hover .visual-orbit-2 {
-  border-color: color-mix(in srgb, var(--accent-3) 60%, transparent) !important;
-  box-shadow: 0 0 40px color-mix(in srgb, var(--accent-3) 40%, transparent);
-}
-.visual-card:hover .visual-dot {
-  filter: brightness(1.4) drop-shadow(0 0 8px currentColor);
+/* Mobile: smaller orbits */
+@media (max-width: 920px) {
+  .visual-card { min-height: 320px; }
+  .avatar-wrap { width: 220px; height: 220px; }
+  .visual-orbit-1 { width: 250px; height: 250px; }
+  .visual-orbit-2 { width: 300px; height: 300px; }
+  .visual-orbit-3 { width: 350px; height: 350px; }
+  @keyframes orbit1 {
+    from { transform: translate(-50%, -50%) rotate(0deg)   translateX(125px) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg) translateX(125px) rotate(-360deg); }
+  }
+  @keyframes orbit2 {
+    from { transform: translate(-50%, -50%) rotate(0deg)   translateX(150px) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg) translateX(150px) rotate(-360deg); }
+  }
+  @keyframes orbit3 {
+    from { transform: translate(-50%, -50%) rotate(0deg)   translateX(175px) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg) translateX(175px) rotate(-360deg); }
+  }
 }
 
 /* ============================================================
-   Learning Analytics — "Last update" date
+   MOBILE CERTIFICATIONS: show ONLY the certification name
+   Hide issuer, platform, year, arrow on mobile for a cleaner list
+   ============================================================ */
+@media (max-width: 920px) {
+  #certifications .cert-row .cert-issuer,
+  #certifications .cert-row .cert-plat,
+  #certifications .cert-row .cert-year,
+  #certifications .cert-row .cert-arrow {
+    display: none !important;
+  }
+  #certifications .cert-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 14px 16px !important;
+    margin-bottom: 8px !important;
+  }
+  #certifications .cert-row .cert-bar {
+    width: 4px !important;
+    height: 22px !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0;
+  }
+  #certifications .cert-row .cert-name {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    flex: 1;
+  }
+  /* Planned certs: keep name + code on one line */
+  #certifications .cert-planned {
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 12px 14px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* ============================================================
+   REMOVE the 3 orbital rings (keep only the 3 orbiting dots)
+   ============================================================ */
+.visual-orbit-1,
+.visual-orbit-2,
+.visual-orbit-3,
+.visual-orbit {
+  display: none !important;
+}
+
+/* ============================================================
+   Learning Analytics "Last update" — violet color theme
    ============================================================ */
 .edu-update {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  color: var(--text-mute);
-  margin-top: 8px;
-  letter-spacing: 0.3px;
+  color: var(--accent) !important;
 }
 .edu-update strong {
-  color: var(--accent);
-  font-weight: 600;
+  color: var(--accent) !important;
 }
 .edu-update-icon {
-  display: inline-block;
-  margin-right: 4px;
-  animation: spinSlow 5s linear infinite;
-  color: var(--accent-2);
-}
-@keyframes spinSlow {
-  to { transform: rotate(360deg); }
+  color: var(--accent) !important;
 }
 
 /* ============================================================
-   Certification platform logos
+   MOBILE ABOUT: fix wasted vertical space
    ============================================================ */
-.cert-plat-logo {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-.cert-plat-logo svg {
-  display: block;
-}
-.cert-plat-text {
-  vertical-align: middle;
-}
-.cert-plat {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 4px;
+@media (max-width: 920px) {
+  /* Remove the 320px min-height of visual-card (was reserved for big orbits) */
+  .visual-card {
+    min-height: 240px !important;
+    padding: 20px 0 !important;
+  }
+  /* Tighter avatar size on mobile */
+  .avatar-wrap {
+    width: 180px !important;
+    height: 180px !important;
+  }
+  /* Smaller dot orbits to match the smaller avatar */
+  @keyframes orbit1 {
+    from { transform: translate(-50%, -50%) rotate(0deg)   translateX(105px) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg) translateX(105px) rotate(-360deg); }
+  }
+  @keyframes orbit2 {
+    from { transform: translate(-50%, -50%) rotate(0deg)   translateX(125px) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg) translateX(125px) rotate(-360deg); }
+  }
+  @keyframes orbit3 {
+    from { transform: translate(-50%, -50%) rotate(0deg)   translateX(145px) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg) translateX(145px) rotate(-360deg); }
+  }
+
+  /* Tighten the hero section spacing */
+  #about,
+  .home-hero,
+  .hero-grid,
+  .about-section {
+    padding-top: 24px !important;
+  }
+  /* If there's a gap between visual and content */
+  .hero-grid,
+  .home-hero-grid {
+    gap: 20px !important;
+  }
+  /* Reduce About section padding overall on mobile */
+  #about {
+    padding-bottom: 32px !important;
+  }
 }
 
 /* ============================================================
-   Issuer logos in certifications (Stanford, IBM, Google, DeepLearning, etc.)
+   MOBILE ABOUT: tighten the top spacing further
    ============================================================ */
-.cert-issuer-logos {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-.cert-issuer-logo {
-  display: inline-flex;
-  align-items: center;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.cert-issuer-logo svg {
-  display: block;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 2px;
-  box-sizing: content-box;
-}
-[data-theme="light"] .cert-issuer-logo svg {
-  background: rgba(0, 0, 0, 0.04);
-}
-.cert-issuer-text {
-  vertical-align: middle;
-  color: var(--text-soft);
-}
-.cert-issuer {
-  display: flex !important;
-  align-items: center;
-  gap: 4px;
-  min-height: 28px;
-}
-
-/* ============================================================
-   DISABLE avatar tilt/hover effects (keep only the orbit rotation)
-   ============================================================ */
-.visual-card:hover .avatar-wrap {
-  transform: none !important;
-}
-.avatar-wrap {
-  transition: none !important;
-}
-
-/* ============================================================
-   FINAL OVERRIDE: completely disable any hover effect on avatar
-   ============================================================ */
-.visual-card:hover .avatar-wrap,
-.visual-card:active .avatar-wrap,
-.visual-card:focus .avatar-wrap {
-  transform: none !important;
-  scale: 1 !important;
-}
-.visual-card:hover .visual-orbit-1,
-.visual-card:hover .visual-orbit-2 {
-  box-shadow: none !important;
-  /* keep original border color */
-}
-.visual-card:hover .visual-dot {
-  filter: none !important;
-}
-.avatar-wrap {
-  transform: none !important;
-  cursor: default !important;
-}
-.visual-card {
-  cursor: default !important;
+@media (max-width: 920px) {
+  /* Reduce the hero-about padding on mobile (was 40px top / 60px bottom) */
+  .hero-about {
+    padding: 12px 0 24px !important;
+  }
+  /* Tighten section padding too */
+  .section-hero-about {
+    padding-top: 8px !important;
+    padding-bottom: 16px !important;
+  }
+  /* Reduce gap between avatar visual and the content below */
+  .ha-right + .ha-left,
+  .ha-right {
+    margin-bottom: 8px !important;
+  }
 }
