@@ -3011,3 +3011,25 @@ body { padding-top: 100px; }
     margin-bottom: 8px !important;
   }
 }
+
+/* ============================================================
+   FIX: hidden-cert must override mobile display: flex
+   ============================================================ */
+#certifications .cert-row.hidden-cert,
+.cert-row.hidden-cert {
+  display: none !important;
+}
+
+/* ============================================================
+   FIX: Last update — only "04/06/2026" is bold, label is grey
+   ============================================================ */
+.edu-update {
+  color: var(--text-mute) !important;   /* "Last update:" grey */
+}
+.edu-update strong {
+  color: var(--accent) !important;       /* "04/06/2026" violet */
+  font-weight: 700 !important;           /* and bold */
+}
+.edu-update-icon {
+  color: var(--accent) !important;       /* keep icon violet */
+}
