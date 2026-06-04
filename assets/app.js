@@ -585,9 +585,8 @@
       const dd = String(now.getDate()).padStart(2, '0');
       const mm = String(now.getMonth() + 1).padStart(2, '0');
       const yyyy = now.getFullYear();
-      const dict = (window.I18N && window.I18N[curLang]) || {};
-      const label = dict['edu.last_update'] || 'Last update';
-      updateEl.innerHTML = `<span class="edu-update-icon">⟳</span> ${label}: <strong>${dd}/${mm}/${yyyy}</strong>`;
+      // Use data-i18n on the label span so applyLang updates it on language switch
+      updateEl.innerHTML = `<span class="edu-update-icon">⟳</span> <span data-i18n="edu.last_update">Last update</span>: <strong>${dd}/${mm}/${yyyy}</strong>`;
     }
     if (window.applyLang) window.applyLang(curLang);
   }
