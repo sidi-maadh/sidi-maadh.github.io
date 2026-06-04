@@ -175,6 +175,7 @@ window.I18N = {
     "jrn.card.visited": "Visited",
     "jrn.card.home": "🏠 Home country",
     "edu.last_update": "Last update",
+    "cert.more": "Load More",
   },
   fr: {
     "nav.home": "Accueil",
@@ -352,5 +353,6 @@ window.I18N = {
     "jrn.card.visited": "Visité en",
     "jrn.card.home": "🏠 Pays d'origine",
     "edu.last_update": "Dernière mise à jour",
+    "cert.more": "Voir plus",
   }
 };
